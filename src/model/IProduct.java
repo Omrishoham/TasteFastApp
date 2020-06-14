@@ -1,6 +1,6 @@
 package model;
 
-public interface Product 
+public interface IProduct 
 {
     public String getProductName();
     public double getPrice();

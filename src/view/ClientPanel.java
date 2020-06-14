@@ -20,6 +20,7 @@ public class ClientPanel
 		Scanner input = new Scanner(System.in);
 		System.out.println("hi client,\nchoose one of your options:\n1.make order");
 		int numPress = input.nextInt();
+		System.out.println("\n");
 		switch(numPress) 
 		{
 		case 1:

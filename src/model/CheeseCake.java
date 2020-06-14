@@ -3,7 +3,6 @@ package model;
 public class CheeseCake extends ItemsInMenu {
 	private static CheeseCake instance=null;
 	
-	//ohh i LOVE CheeseCake
 	private CheeseCake() 
 	{
 		super("Cheese Cake",20, " Cheese Cake", 6);

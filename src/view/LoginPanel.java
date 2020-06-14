@@ -17,6 +17,7 @@ public class LoginPanel
 		Scanner input = new Scanner(System.in);
 		System.out.println("Connect as a:\n1.Client\n2.Waiter\n3.Manager");
 		int numPress = input.nextInt();
+		System.out.flush();
 		
 		switch(numPress) {
 		case 1:
