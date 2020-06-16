@@ -20,9 +20,9 @@ public class AppController implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) 
 	{
-		if(event.getPropertyName().equals("SignUpEvent"))
+		if(event.getPropertyName().equals("SignUpClientEvent"))
 		{
-			
+			model.signUpClient(view.getUsernameSignUp(), view.getPasswordSignUp());
 		}
 		
 	}

@@ -7,20 +7,34 @@ import java.beans.PropertyChangeSupport;
 public class AppView implements PropertyChangeListener {
 	private PropertyChangeSupport propertyChangeHandler;
 	private OrderPanel orderPanel;
-	private Intro loginPanel;
-	private ClientLogin clientLogin;
+	private IntroPanel introPanel;
+	private ClientLoginPanel clientLoginPanel;
 	private SignUpPanel signUpPanel;
+	private CartPanel cartPanel;
+	private ConfirmOrderPanel confirmOrderPanel;
 	
 	public AppView()
 	{
 		setPropertyChangeSupport();
+		
 		orderPanel = new OrderPanel();
-		loginPanel = new Intro();
-		clientLogin = new ClientLogin();
+		introPanel = new IntroPanel();
+		clientLoginPanel = new ClientLoginPanel();
+		signUpPanel = new SignUpPanel();
+		cartPanel = new CartPanel();
+		confirmOrderPanel = new ConfirmOrderPanel();
+		
+		
 		orderPanel.addPropertyChangeListener(this);
-		loginPanel.addPropertyChangeListener(this);
-		clientLogin.addPropertyChangeListener(this);
-		loginPanel.panelActivity();
+		introPanel.addPropertyChangeListener(this);
+		clientLoginPanel.addPropertyChangeListener(this);
+		signUpPanel.addPropertyChangeListener(this);
+		cartPanel.addPropertyChangeListener(this);
+		confirmOrderPanel.addPropertyChangeListener(this);
+		
+		
+		
+		introPanel.panelActivity();
 	 
 	}
 	public void setPropertyChangeSupport() {
@@ -37,9 +51,9 @@ public class AppView implements PropertyChangeListener {
 		{
 			changeWindows("OrderPanel");
 		}
-		else if(event.getPropertyName().equals("ClientLogin"))
+		else if(event.getPropertyName().equals("ClientLoginPanel"))
 		{
-			changeWindows("ClientLogin");
+			changeWindows("ClientLoginPanel");
 			
 		}
 		else if(event.getPropertyName().equals("EmployeeLogin"))
@@ -50,6 +64,10 @@ public class AppView implements PropertyChangeListener {
 		else if(event.getPropertyName().equals("SignUpPanel"))
 		{
 			changeWindows("SignUpPanel");
+		}
+		else if(event.getPropertyName().equals("ClientLoginPanel"))
+		{
+			changeWindows("ClientLoginPanel");
 		}
 			
 		else {
@@ -68,11 +86,11 @@ public class AppView implements PropertyChangeListener {
 			orderPanel.panelActivity();
 			break;
 			
-		case "ClientLogin":
-			clientLogin.panelActivity();
+		case "ClientLoginPanel":
+			clientLoginPanel.panelActivity();
 			break;
 		case "EmployeeLogin":
-			clientLogin.panelActivity();
+			
 			break;
 		case "SignUpPanel":
 			signUpPanel.panelActivity();
@@ -84,11 +102,11 @@ public class AppView implements PropertyChangeListener {
 		}
 	}
 	public String getUsernameSignUp(){
-		return this.signUpPanel.getUsername();
+		return this.signUpPanel.getUsernameSignUPClient();
 	}
 	
 	public String getPasswordSignUp(){
-		return this.signUpPanel.getPassword();
+		return this.signUpPanel.getPasswordSignUPClient();
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class AppModel
 {
 	private PropertyChangeSupport propertyChangeHandler;
+	private ClientsDB clientsDB;
 	private ArrayList<Product> menu;//The restaurant menu, has all products for sale
 
 public AppModel()
@@ -19,6 +20,10 @@ public AppModel()
 	menu.add(CheeseCake.getInstance());
 	menu.add(ChocolateMousse.getInstance());
 
+}
+public void signUpClient(String username,String password)
+{
+	clientsDB.insertLoginInfo(username, password);
 }
 
 public void setPropertyChangeSupport()

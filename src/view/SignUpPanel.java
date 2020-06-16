@@ -20,12 +20,29 @@ public class SignUpPanel
 		Scanner input = new Scanner(System.in);
 		System.out.println("enter username:");
 		String username = input.nextLine();
-		
-		
+		while(username=="")
+		{
+			System.out.println("error! enter again username:");
+			username = input.nextLine();
+		}
+		this.username = username;
 		System.out.println("enter password:");
 		String password = input.nextLine();
+		while(password=="")
+		{
+			System.out.println("error! enter again password:");
+			password = input.nextLine();
+		}
+		this.password = password;
 		
 		propertyChangeHandler.firePropertyChange("SignUpEvent",0,1);
+		System.out.println("user sign up successfuly");
+		System.out.println("To login press 1");
+		int numPress = input.nextInt();
+		if(numPress==1)
+		{
+			propertyChangeHandler.firePropertyChange("ClientLoginPanel", 0, 1);
+		}
 	}
 	public void setPropertyChangeSupport() {
 		propertyChangeHandler = new PropertyChangeSupport(this);
@@ -36,11 +53,11 @@ public class SignUpPanel
 		propertyChangeHandler.addPropertyChangeListener(listener);
 	}
 	
-	public String getUsername() {
+	public String getUsernameSignUPClient() {
 		return this.username;
 	}
 	
-	public String getPassword() {
+	public String getPasswordSignUPClient() {
 		return this.password;
 		
 	}

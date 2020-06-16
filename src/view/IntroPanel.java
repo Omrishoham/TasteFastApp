@@ -4,11 +4,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Scanner;
 
-public class Intro 
+public class IntroPanel 
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	public Intro()
+	public IntroPanel()
 	{
 		setPropertyChangeSupport();
 	}

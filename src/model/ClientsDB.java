@@ -6,16 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LoginDB extends Database
+public class ClientsDB extends Database
 {
-	private static LoginDB instance=null;
+	private static ClientsDB instance=null;
 	
-	private LoginDB() {}
+	private ClientsDB() {}
 	
-	public static LoginDB getInstance()//use singleton design pattern
+	public static ClientsDB getInstance()//use singleton design pattern
 	{
 		if(instance==null) {
-			instance=new LoginDB();
+			instance=new ClientsDB();
 		}
 		return instance;
 	}
@@ -23,17 +23,19 @@ public class LoginDB extends Database
 	//insert new login info to database-by manager in event of adding a new employee
     public void insertLoginInfo(String username, String password)
     {
-        String sql = "INSERT INTO clients(username,password) VALUES(?,?)";
  
-        try (Connection connect = this.connectToDB();
-            PreparedStatement pstmt = connect.prepareStatement(sql)) {
+        try (Connection connect = this.connectToDB())
+        {
+            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO clients(username,password) VALUES(?,?)");
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        	
         }
-    }
+          catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+     }
     
   //gets userName and pass strings and checks they got a match in login table
     public boolean loginAuthentication(String username,String password)

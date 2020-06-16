@@ -5,17 +5,17 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ClientLogin 
+public class ClientLoginPanel 
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	public ClientLogin()
+	public ClientLoginPanel()
 	{
 		setPropertyChangeSupport();
 	}
 	
 	public void panelActivity()
-	{
+	{////////שיטרית צריך פה לשנות לחלון של לוגין לקליינטים שבו נאמת את הלקוח ואז נעבור לאפשרויות שלו בחלון אחר שנעשה
 		Scanner input = new Scanner(System.in);
 		System.out.println("hi client,\nchoose one of your options:\n1.make order");
 		int numPress = input.nextInt();

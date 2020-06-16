@@ -3,11 +3,11 @@ package view;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ConfirmOrder 
+public class ConfirmOrderPanel 
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	public ConfirmOrder()
+	public ConfirmOrderPanel()
 	{
 		setPropertyChangeSupport();
 	}
