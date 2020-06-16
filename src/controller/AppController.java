@@ -18,9 +18,12 @@ public class AppController implements PropertyChangeListener {
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) 
+	public void propertyChange(PropertyChangeEvent event) 
 	{
-		
+		if(event.getPropertyName().equals("SignUpEvent"))
+		{
+			
+		}
 		
 	}
 

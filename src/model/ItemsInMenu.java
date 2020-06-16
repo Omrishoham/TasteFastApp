@@ -1,6 +1,6 @@
 package model;
 
-public abstract class ItemsInMenu implements IProduct {
+public abstract class ItemsInMenu implements Product {
 	protected String itemName;
 	protected double price;
 	protected String description;

@@ -4,25 +4,30 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Scanner;
 
-public class LoginPanel 
+public class Intro 
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	public LoginPanel()
+	public Intro()
 	{
 		setPropertyChangeSupport();
 	}
+	
 	public void panelActivity()
 	{
 		Scanner input = new Scanner(System.in);
-		System.out.println("Connect as a:\n1.Client\n2.Waiter\n3.Manager");
+		System.out.println("1. Login as client\n 2. Login as employee\n3.Sign up as client" );
 		int numPress = input.nextInt();
-		System.out.flush();
 		
 		switch(numPress) {
 		case 1:
-			propertyChangeHandler.firePropertyChange("ClientView",0,1);
-			
+			propertyChangeHandler.firePropertyChange("ClientLogin",0,1);
+			break;
+		case 2:
+			propertyChangeHandler.firePropertyChange("EmployeeLogin",0,1);
+			break;
+		case 3:
+			propertyChangeHandler.firePropertyChange("SignUpPanel",0,1);
 			break;
 
 		}

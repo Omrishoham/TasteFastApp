@@ -5,14 +5,13 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ClientPanel 
+public class ClientLogin 
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	public ClientPanel()
+	public ClientLogin()
 	{
 		setPropertyChangeSupport();
-
 	}
 	
 	public void panelActivity()

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
-import model.IProduct;
+import model.Product;
 import model.ItemsInMenu;
 import model.CheeseCake;
 import model.ChocolateMousse;

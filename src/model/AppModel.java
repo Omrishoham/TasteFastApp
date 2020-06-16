@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class AppModel
 {
 	private PropertyChangeSupport propertyChangeHandler;
-	private ArrayList<IProduct> menu;//The restaurant menu, has all products for sale
+	private ArrayList<Product> menu;//The restaurant menu, has all products for sale
 
 public AppModel()
 {
 	setPropertyChangeSupport();
-	menu=new ArrayList<IProduct>();
+	menu=new ArrayList<Product>();
 	menu.add(RegularPizza.getInstance());
 	menu.add(VeganPizza.getInstance());
 	menu.add(PastaBolognese.getInstance());
@@ -30,7 +30,7 @@ public void addPropertyChangeListener(PropertyChangeListener listener)
 {
 		propertyChangeHandler.addPropertyChangeListener(listener); 
 }
-public ArrayList<IProduct> getMenu()
+public ArrayList<Product> getMenu()
 {
 	return menu;
 }

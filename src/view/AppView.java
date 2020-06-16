@@ -7,18 +7,19 @@ import java.beans.PropertyChangeSupport;
 public class AppView implements PropertyChangeListener {
 	private PropertyChangeSupport propertyChangeHandler;
 	private OrderPanel orderPanel;
-	private LoginPanel loginPanel;
-	private ClientPanel clientPanel;
+	private Intro loginPanel;
+	private ClientLogin clientLogin;
+	private SignUpPanel signUpPanel;
 	
 	public AppView()
 	{
 		setPropertyChangeSupport();
 		orderPanel = new OrderPanel();
-		loginPanel = new LoginPanel();
-		clientPanel = new ClientPanel();
+		loginPanel = new Intro();
+		clientLogin = new ClientLogin();
 		orderPanel.addPropertyChangeListener(this);
 		loginPanel.addPropertyChangeListener(this);
-		clientPanel.addPropertyChangeListener(this);
+		clientLogin.addPropertyChangeListener(this);
 		loginPanel.panelActivity();
 	 
 	}
@@ -36,13 +37,28 @@ public class AppView implements PropertyChangeListener {
 		{
 			changeWindows("OrderPanel");
 		}
-		else if(event.getPropertyName().equals("ClientView"))
+		else if(event.getPropertyName().equals("ClientLogin"))
 		{
-			changeWindows("ClientView");
+			changeWindows("ClientLogin");
+			
+		}
+		else if(event.getPropertyName().equals("EmployeeLogin"))
+		{
+			changeWindows("EmployeeLogin");
+			
+		}
+		else if(event.getPropertyName().equals("SignUpPanel"))
+		{
+			changeWindows("SignUpPanel");
+		}
+			
+		else {
+				//send the property change to the controller
+				propertyChangeHandler.firePropertyChange(event.getPropertyName(), event.getOldValue(), event.getNewValue());	
+			}
 			
 		}
 		
-	}
 	
 	public void changeWindows(String newPanel)
 	{
@@ -52,12 +68,27 @@ public class AppView implements PropertyChangeListener {
 			orderPanel.panelActivity();
 			break;
 			
-		case "ClientView":
-			clientPanel.panelActivity();
+		case "ClientLogin":
+			clientLogin.panelActivity();
 			break;
+		case "EmployeeLogin":
+			clientLogin.panelActivity();
+			break;
+		case "SignUpPanel":
+			signUpPanel.panelActivity();
+			break;
+			
+			
 	
 		
 		}
+	}
+	public String getUsernameSignUp(){
+		return this.signUpPanel.getUsername();
+	}
+	
+	public String getPasswordSignUp(){
+		return this.signUpPanel.getPassword();
 	}
 
 }
