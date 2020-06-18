@@ -22,7 +22,7 @@ public class OrderPanel
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	private ArrayList<ItemsInMenu> shoppingCart= new ArrayList<>(); //to add dynamically
-	private ArrayList<ItemsInMenu> menu2 = new ArrayList<>(); //constant menu list
+	private ArrayList<ItemsInMenu> menu = new ArrayList<>(); //constant menu list
 	
 	
 	public OrderPanel()
@@ -30,12 +30,12 @@ public class OrderPanel
 		setPropertyChangeSupport();
 		
 		//fill menu with items
-		menu2.add(RegularPizza.getInstance());
-		menu2.add(VeganPizza.getInstance());
-		menu2.add(PastaBolognese.getInstance());
-		menu2.add(PastaAlfredo.getInstance());
-		menu2.add(ChocolateMousse.getInstance());
-		menu2.add(CheeseCake.getInstance());	
+		menu.add(RegularPizza.getInstance());
+		menu.add(VeganPizza.getInstance());
+		menu.add(PastaBolognese.getInstance());
+		menu.add(PastaAlfredo.getInstance());
+		menu.add(ChocolateMousse.getInstance());
+		menu.add(CheeseCake.getInstance());	
 	}
 	
 	public void panelActivity()
@@ -53,9 +53,9 @@ public class OrderPanel
 		
 		//print menu
 		int i = 0;
-		while(i< menu2.size()) {
+		while(i< menu.size()) {
 			System.out.print( (i+1) + ". ");
-			menu2.get(i).printItem();
+			menu.get(i).printItem();
 			i++;
 		}
 		
@@ -69,116 +69,116 @@ public class OrderPanel
 			switch (removeOrAddInput) {
 			case "add 1":
 				j = 0;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 1":
 				j = 0;
 				
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 				
 			case "add 2":
 				j = 1;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 2":
 				j = 1;
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 				
 			case "add 3":
 				j = 2;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 3":
 				j = 2;
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 				
 			case "add 4":
 				j = 3;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 4":
 				j = 3;
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 				
 			case "add 5":
 				j = 4;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 5":
 				j = 4;
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 				
 			case "add 6":
 				j = 5;
-				shoppingCart.add(menu2.get(j));
-				System.out.println(menu2.get(j).getProductName()+" added to cart");
-				totalPrice+=menu2.get(j).getPrice();
+				shoppingCart.add(menu.get(j));
+				System.out.println(menu.get(j).getProductName()+" added to cart");
+				totalPrice+=menu.get(j).getPrice();
 				break;
 				
 			case "remove 6":
 				j = 5;
-				if(shoppingCart.contains(menu2.get(j))) {
+				if(shoppingCart.contains(menu.get(j))) {
 					shoppingCart.remove(j);
-					System.out.println(menu2.get(j).getProductName()+" was removed from cart");
-					totalPrice-=menu2.get(j).getPrice();
+					System.out.println(menu.get(j).getProductName()+" was removed from cart");
+					totalPrice-=menu.get(j).getPrice();
 				}
 				else {
-					System.out.println(menu2.get(j).getProductName()+" not in cart!");
+					System.out.println(menu.get(j).getProductName()+" not in cart!");
 				}
 				break;
 
@@ -197,8 +197,19 @@ public class OrderPanel
 			itemsInMenu.printItem();
 		}
 		System.out.println("Total price: " +totalPrice);
+		
+		//move to cart panel to select payment method
+		System.out.println("Press 1 to proceed to cart");
+		int numPress = input.nextInt();
+		if(numPress == 1) {
+			propertyChangeHandler.firePropertyChange("CartPanel",0,1);
+		}
 	}
 
+	
+	public ArrayList<ItemsInMenu> getShoppingCart() {
+		return this.shoppingCart;
+	}
 	
 	public void setPropertyChangeSupport() 
 	{

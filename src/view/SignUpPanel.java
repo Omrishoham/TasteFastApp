@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class SignUpPanel
 {
+	private String firstName;
+	private String lastName;
+	private String email;
 	private String username;
 	private String password;
 	
@@ -18,19 +21,47 @@ public class SignUpPanel
 	public void panelActivity()
 	{
 		Scanner input = new Scanner(System.in);
+		System.out.println("enter first name:");
+		String firstName = input.nextLine();
+		while(firstName=="")
+		{
+			System.out.println("enter valid first name:");
+			firstName = input.nextLine();
+		}
+		this.firstName = firstName;
+		
+		System.out.println("enter last name:");
+		String lastName = input.nextLine();
+		while(lastName=="")
+		{
+			System.out.println("enter valid last name:");
+			lastName = input.nextLine();
+		}
+		this.lastName = lastName;
+		
+		System.out.println("enter last name:");
+		String email = input.nextLine();
+		while(email=="")
+		{
+			System.out.println("enter valid last name:");
+			email = input.nextLine();
+		}
+		this.email = email;
+		
 		System.out.println("enter username:");
 		String username = input.nextLine();
 		while(username=="")
 		{
-			System.out.println("error! enter again username:");
+			System.out.println("enter valid last username");
 			username = input.nextLine();
 		}
 		this.username = username;
+		
 		System.out.println("enter password:");
 		String password = input.nextLine();
 		while(password=="")
 		{
-			System.out.println("error! enter again password:");
+			System.out.println("enter valid password:");
 			password = input.nextLine();
 		}
 		this.password = password;
@@ -61,5 +92,19 @@ public class SignUpPanel
 		return this.password;
 		
 	}
+	
+	public String getFirstNameSignUpClient() {
+		return this.firstName;
+	}
+	
+	public String getLastNameSignUpClient() {
+		return this.password;
+		
+	}
+	
+	public String getEmailSignUpClient() {
+		return this.username;
+	}
+	
 
 }

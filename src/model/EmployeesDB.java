@@ -19,7 +19,7 @@ public class EmployeesDB extends Database
 		return instance;
 	}
 	
-	public void insertLoginInfo(String username, String password)
+	public void insertInfo(String username, String password)
     {
  
         try (Connection connect = this.connectToDB())

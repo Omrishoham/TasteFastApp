@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 public class ClientLoginPanel 
 {
+	String username;
+	String password;
+	
 	private PropertyChangeSupport propertyChangeHandler;
 	
 	public ClientLoginPanel()
@@ -17,15 +20,36 @@ public class ClientLoginPanel
 	public void panelActivity()
 	{////////שיטרית צריך פה לשנות לחלון של לוגין לקליינטים שבו נאמת את הלקוח ואז נעבור לאפשרויות שלו בחלון אחר שנעשה
 		Scanner input = new Scanner(System.in);
-		System.out.println("hi client,\nchoose one of your options:\n1.make order");
-		int numPress = input.nextInt();
-		System.out.println("\n");
-		switch(numPress) 
+		System.out.println("Login:\n");
+		
+		System.out.println("username: ");
+		String username = input.nextLine();
+		while(username=="")
 		{
-		case 1:
-			propertyChangeHandler.firePropertyChange("OrderPanel",0,1);
-			break;
+			System.out.println("error! enter again username:");
+			username = input.nextLine();
 		}
+		this.username = username;
+		
+		System.out.println("password:");
+		String password = input.nextLine();
+		while(password=="")
+		{
+			System.out.println("error! enter again password:");
+			password = input.nextLine();
+		}
+		this.password = password;
+		
+		//controller checks if client in DB
+		propertyChangeHandler.firePropertyChange("ClientLoginEvent",0,1);
+	}
+
+	public String getClientLoginUsername() {
+		return this.username;
+	}
+	
+	public String getClientLoginPassword() {
+		return this.password;
 	}
 
 

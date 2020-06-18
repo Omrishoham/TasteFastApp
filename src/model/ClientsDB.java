@@ -21,14 +21,17 @@ public class ClientsDB extends Database
 	}
 	
 	//insert new login info to database-by manager in event of adding a new employee
-    public void insertLoginInfo(String username, String password)
+    public void insertInfo(String username, String password, String email,String firstName,String lastName)
     {
  
         try (Connection connect = this.connectToDB())
         {
-            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO clients(username,password) VALUES(?,?)");
+            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO clients(username,password,email,firstName,lastName) VALUES(?,?,?,?,?)");
             pstmt.setString(1, username);
             pstmt.setString(2, password);
+            pstmt.setString(3, email);
+            pstmt.setString(4, firstName);
+            pstmt.setString(5, lastName);
             pstmt.executeUpdate();
         	
         }

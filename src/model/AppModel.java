@@ -8,23 +8,25 @@ public class AppModel
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	private ClientsDB clientsDB;
-	private ArrayList<Product> menu;//The restaurant menu, has all products for sale
 
 public AppModel()
 {
 	setPropertyChangeSupport();
-	menu=new ArrayList<Product>();
-	menu.add(RegularPizza.getInstance());
-	menu.add(VeganPizza.getInstance());
-	menu.add(PastaBolognese.getInstance());
-	menu.add(CheeseCake.getInstance());
-	menu.add(ChocolateMousse.getInstance());
 
 }
-public void signUpClient(String username,String password)
+
+//put new client info in Database
+public void signUpClient(String username,String password,String email,String firstName,String lastName)
 {
-	clientsDB.insertLoginInfo(username, password);
+	clientsDB.insertInfo(username, password,email,firstName,lastName);
 }
+
+//return if client is in the Database
+public boolean loginClientAuth(String username, String password) {
+	
+	return clientsDB.loginAuthentication(username, password);
+}
+
 
 public void setPropertyChangeSupport()
 {
@@ -34,10 +36,6 @@ public void setPropertyChangeSupport()
 public void addPropertyChangeListener(PropertyChangeListener listener)
 {
 		propertyChangeHandler.addPropertyChangeListener(listener); 
-}
-public ArrayList<Product> getMenu()
-{
-	return menu;
 }
 
 }

@@ -2,23 +2,32 @@ package view;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
+import java.util.Scanner;
 
-import model.ItemsInMenu;
-
-public class CartPanel {
+public class ClientPanel {
 	
 	private PropertyChangeSupport propertyChangeHandler;
 	
-	//private ArrayList<ItemsInMenu> shoppingCart;
-	
-	public CartPanel()
+	public ClientPanel()
 	{
 		setPropertyChangeSupport();
 	}
 	
-	public void panelActivity(ArrayList<ItemsInMenu> shoppingCart) {
+	public void panelActivity(String username) {
 		
+		System.out.println("Hi "+username+"!");
+		System.out.println("1.Open resturant menu");
+		Scanner input = new Scanner(System.in);
+		int numPress = input.nextInt();
+		
+		switch (numPress) {
+		case 1:
+			propertyChangeHandler.firePropertyChange("OrderPanel",0,1); //goes to resturant menu
+			break;
+
+		default:
+			break;
+		}
 	}
 	
 	public void setPropertyChangeSupport() 
@@ -29,5 +38,5 @@ public class CartPanel {
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener); 
 	}
-}
 
+}

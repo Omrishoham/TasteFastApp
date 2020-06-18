@@ -22,7 +22,23 @@ public class AppController implements PropertyChangeListener {
 	{
 		if(event.getPropertyName().equals("SignUpClientEvent"))
 		{
-			model.signUpClient(view.getUsernameSignUp(), view.getPasswordSignUp());
+			model.signUpClient(
+					view.getUsernameSignUp(),
+					view.getPasswordSignUp(),
+					view.getEmailSignUp(),
+					view.getFirstNameSignUp(),
+					view.getLastNameSignUp());
+		}
+		else if(event.getPropertyName().equals("ClientLoginEvent")) {
+			
+			if (model.loginClientAuth(view.getUsernameClientLogin(), view.getPasswordClientLogin())) {
+				
+				view.changeWindows("ClientPanel"); //after success login move to client panel
+			}
+			else {
+				view.loginErrorMsg(); //prints error message
+				view.changeWindows("ClientLoginPanel"); //login again if wrong user
+			}
 		}
 		
 	}
