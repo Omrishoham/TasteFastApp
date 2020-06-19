@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import model.Product;
 import model.ItemsInMenu;
+import model.Order;
 import model.CheeseCake;
 import model.ChocolateMousse;
 import model.PastaAlfredo;
@@ -21,10 +22,8 @@ import model.VeganPizza;
 public class OrderPanel 
 {
 	private PropertyChangeSupport propertyChangeHandler;
-	private ArrayList<ItemsInMenu> shoppingCart= new ArrayList<>(); //to add dynamically
 	private ArrayList<ItemsInMenu> menu = new ArrayList<>(); //constant menu list
-	
-	
+	private Order newOrder;
 	public OrderPanel()
 	{
 		setPropertyChangeSupport();
@@ -38,9 +37,11 @@ public class OrderPanel
 		menu.add(CheeseCake.getInstance());	
 	}
 	
-	public void panelActivity()
+	public void panelActivity(String username)
 	{
-		
+		this.newOrder = new Order(username);
+		double totalPrice=0;
+		ArrayList<ItemsInMenu> shoppingCart= new ArrayList<>();
 		//instructions
 		System.out.println("Instructions:\n"
 				+ "Write \"add\" and the number of the item from menu to add it to cart\n"
@@ -59,7 +60,6 @@ public class OrderPanel
 			i++;
 		}
 		
-		double totalPrice = 0;
 		Scanner input = new Scanner(System.in);
 		String removeOrAddInput = input.nextLine();
 		
@@ -198,18 +198,18 @@ public class OrderPanel
 		}
 		System.out.println("Total price: " +totalPrice);
 		
+		this.newOrder.setShoppingCart(shoppingCart);
+		this.newOrder.setTotalPrice(totalPrice);
+		
 		//move to cart panel to select payment method
 		System.out.println("Press 1 to proceed to cart");
 		int numPress = input.nextInt();
-		if(numPress == 1) {
-			propertyChangeHandler.firePropertyChange("CartPanel",0,1);
+		if(numPress == 1)
+		{
+			propertyChangeHandler.firePropertyChange("CartPanel", 0, 1);
 		}
 	}
 
-	
-	public ArrayList<ItemsInMenu> getShoppingCart() {
-		return this.shoppingCart;
-	}
 	
 	public void setPropertyChangeSupport() 
 	{
@@ -219,6 +219,8 @@ public class OrderPanel
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener); 
 	}
-	
+	public Order getNewOrder() {
+		return this.newOrder;
+	}
 
 }

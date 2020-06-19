@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class ClientPanel {
 	
 	private PropertyChangeSupport propertyChangeHandler;
+	private String username;
 	
 	public ClientPanel()
 	{
@@ -15,8 +16,9 @@ public class ClientPanel {
 	
 	public void panelActivity(String username) {
 		
+		this.username = username;
 		System.out.println("Hi "+username+"!");
-		System.out.println("1.Open resturant menu");
+		System.out.println("1.Make an order");
 		Scanner input = new Scanner(System.in);
 		int numPress = input.nextInt();
 		
@@ -37,6 +39,9 @@ public class ClientPanel {
 	public void addPropertyChangeListener(PropertyChangeListener listener)
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener); 
+	}
+	public String getClientPanelUsername() {
+		return this.username;
 	}
 
 }

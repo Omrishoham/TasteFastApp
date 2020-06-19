@@ -44,11 +44,11 @@ public class ClientLoginPanel
 		propertyChangeHandler.firePropertyChange("ClientLoginEvent",0,1);
 	}
 
-	public String getClientLoginUsername() {
+	public String getClientLoginPanelUsername() {
 		return this.username;
 	}
 	
-	public String getClientLoginPassword() {
+	public String getClientLoginPanelPassword() {
 		return this.password;
 	}
 

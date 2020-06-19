@@ -1,6 +1,6 @@
 package model;
 
-public class Costumer implements User {
+public class Client implements User {
 	private String userName;
 	
 	public String getUserName() {

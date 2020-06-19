@@ -20,11 +20,11 @@ public class ClientsDB extends Database
 		return instance;
 	}
 	
-	//insert new login info to database-by manager in event of adding a new employee
+	//insert new login info to database
     public void insertInfo(String username, String password, String email,String firstName,String lastName)
     {
- 
-        try (Connection connect = this.connectToDB())
+    	Connection connect = this.connectToDB();
+        try
         {
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO clients(username,password,email,firstName,lastName) VALUES(?,?,?,?,?)");
             pstmt.setString(1, username);

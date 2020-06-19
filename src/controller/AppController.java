@@ -40,6 +40,7 @@ public class AppController implements PropertyChangeListener {
 				view.changeWindows("ClientLoginPanel"); //login again if wrong user
 			}
 		}
+		//פה צריך לבוא אירוע שבו אנו מקבלים ירייה של הכנסת הזמנה חדשה וומפעילים את הפונקציה של המודל
 		
 	}
 

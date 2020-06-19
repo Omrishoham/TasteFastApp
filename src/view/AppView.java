@@ -12,7 +12,6 @@ public class AppView implements PropertyChangeListener {
 	private ClientPanel clientPanel;
 	private SignUpPanel signUpPanel;
 	private CartPanel cartPanel;
-	private ConfirmOrderPanel confirmOrderPanel;
 
 	public AppView() {
 		setPropertyChangeSupport();
@@ -23,7 +22,6 @@ public class AppView implements PropertyChangeListener {
 		clientPanel = new ClientPanel();
 		signUpPanel = new SignUpPanel();
 		cartPanel = new CartPanel();
-		confirmOrderPanel = new ConfirmOrderPanel();
 
 		orderPanel.addPropertyChangeListener(this);
 		introPanel.addPropertyChangeListener(this);
@@ -31,7 +29,6 @@ public class AppView implements PropertyChangeListener {
 		clientPanel.addPropertyChangeListener(this);
 		signUpPanel.addPropertyChangeListener(this);
 		cartPanel.addPropertyChangeListener(this);
-		confirmOrderPanel.addPropertyChangeListener(this);
 
 		introPanel.panelActivity();
 
@@ -76,15 +73,15 @@ public class AppView implements PropertyChangeListener {
 			break;
 
 		case "ClientPanel":
-			clientPanel.panelActivity(clientLoginPanel.getClientLoginUsername());
+			clientPanel.panelActivity(clientLoginPanel.getClientLoginPanelUsername());
 			break;
 
 		case "OrderPanel":
-			orderPanel.panelActivity();
+			orderPanel.panelActivity(clientPanel.getClientPanelUsername());
 			break;
 			
 		case "CartPanel":
-			cartPanel.panelActivity(orderPanel.getShoppingCart());
+			cartPanel.panelActivity(orderPanel.getNewOrder());
 			break;
 		}
 	}
@@ -115,12 +112,12 @@ public class AppView implements PropertyChangeListener {
 
 	// getting username string from client login panel
 	public String getUsernameClientLogin() {
-		return this.clientLoginPanel.getClientLoginUsername();
+		return this.clientLoginPanel.getClientLoginPanelUsername();
 	}
 
 	// getting password string from client login panel
 	public String getPasswordClientLogin() {
-		return this.clientLoginPanel.getClientLoginPassword();
+		return this.clientLoginPanel.getClientLoginPanelPassword();
 	}
 
 	public void loginErrorMsg() {
