@@ -4,6 +4,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import model.AppModel;
+import model.Client;
+import model.Order;
 import view.AppView;
 
 
@@ -22,26 +24,24 @@ public class AppController implements PropertyChangeListener {
 	{
 		if(event.getPropertyName().equals("SignUpClientEvent"))
 		{
-			model.signUpClient(
-					view.getUsernameSignUp(),
-					view.getPasswordSignUp(),
-					view.getEmailSignUp(),
-					view.getFirstNameSignUp(),
-					view.getLastNameSignUp());
+			model.signUpClient((Client)event.getNewValue());
 		}
 		else if(event.getPropertyName().equals("ClientLoginEvent")) {
 			
-			if (model.loginClientAuth(view.getUsernameClientLogin(), view.getPasswordClientLogin())) {
+			if (model.loginClientAuth(((Client)event.getNewValue()).getUsername(),((Client) event.getNewValue()).getPassword())) {
 				
-				view.changeWindows("ClientPanel"); //after success login move to client panel
+				view.changeWindows("ClientPanel",event.getNewValue()); //after success login move to client panel
 			}
 			else {
 				view.loginErrorMsg(); //prints error message
-				view.changeWindows("ClientLoginPanel"); //login again if wrong user
+				view.changeWindows("ClientLoginPanel",null); //login again if wrong user
 			}
 		}
-		//פה צריך לבוא אירוע שבו אנו מקבלים ירייה של הכנסת הזמנה חדשה וומפעילים את הפונקציה של המודל
-		
+		else if(event.getPropertyName().equals("InsertNewOrderEvent"))
+		{
+			model.inserNewOrder(((Order)event.getNewValue()));
+		}
+			
 	}
 
 	public static void main(String[] args) {
@@ -52,6 +52,9 @@ public class AppController implements PropertyChangeListener {
 	////our controller will listen to the model and the view events
 	view.addPropertyChangeListener(controller);
 	model.addPropertyChangeListener(controller);
+	
+	//start display after connecting items
+	view.start();
 	
 	}
 }

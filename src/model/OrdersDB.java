@@ -18,14 +18,14 @@ public class OrdersDB extends Database
 		return instance;
 	}
 	
-	public void insertOrder(String username,int orderNumber,double totalPrice,String creditCardNum,String creditCardVal)
+	public void insertOrder(String username,String orderID,double totalPrice,String creditCardNum,String creditCardVal)
 	{
 		Connection connect = connectToDB();
         try
         {
-            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO orders(username,orderNumber,totalPrice,creditCardNum,creditCardVal) VALUES(?,?,?,?,?)");
+            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO orders(username,orderid,totalprice,creditcardnum,creditcardval) VALUES(?,?,?,?,?)");
             pstmt.setString(1, username);
-            pstmt.setInt(2, orderNumber);
+            pstmt.setString(2, orderID);
             pstmt.setDouble(3,totalPrice);
             pstmt.setString(4, creditCardNum);
             pstmt.setString(5, creditCardVal);

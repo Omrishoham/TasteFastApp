@@ -13,6 +13,7 @@ import model.ItemsInMenu;
 import model.Order;
 import model.CheeseCake;
 import model.ChocolateMousse;
+import model.Client;
 import model.PastaAlfredo;
 import model.PastaBolognese;
 //import model.Product;
@@ -22,13 +23,12 @@ import model.VeganPizza;
 public class OrderPanel 
 {
 	private PropertyChangeSupport propertyChangeHandler;
-	private ArrayList<ItemsInMenu> menu = new ArrayList<>(); //constant menu list
 	private Order newOrder;
+	private ArrayList<ItemsInMenu> menu;
 	public OrderPanel()
 	{
 		setPropertyChangeSupport();
-		
-		//fill menu with items
+		this.menu = new ArrayList<ItemsInMenu>();
 		menu.add(RegularPizza.getInstance());
 		menu.add(VeganPizza.getInstance());
 		menu.add(PastaBolognese.getInstance());
@@ -37,12 +37,18 @@ public class OrderPanel
 		menu.add(CheeseCake.getInstance());	
 	}
 	
-	public void panelActivity(String username)
+	public void panelActivity(Client client)
 	{
-		this.newOrder = new Order(username);
-		double totalPrice=0;
-		ArrayList<ItemsInMenu> shoppingCart= new ArrayList<>();
-		//instructions
+		this.newOrder = new Order(client.getUsername());
+		
+		makeOrder(this.newOrder);
+	}
+	public void makeOrder(Order order)
+	{
+		//setting temp shppingcart and totalprice
+		ArrayList<ItemsInMenu> shoppingCart=new ArrayList<>(order.getShoppingCart());
+		double totalPrice=order.getTotalPrice();
+		Scanner input = new Scanner(System.in);
 		System.out.println("Instructions:\n"
 				+ "Write \"add\" and the number of the item from menu to add it to cart\n"
 				+ "Write \"remove\" and the number of the item from menu to remove from cart\n"
@@ -60,7 +66,15 @@ public class OrderPanel
 			i++;
 		}
 		
-		Scanner input = new Scanner(System.in);
+		//if cart is already been changed
+		if(!shoppingCart.isEmpty()) {
+			System.out.println("Cart:");
+			for(ItemsInMenu itemsInMenu : shoppingCart) {
+				itemsInMenu.printItem();
+			}
+			System.out.println("Total price: " +totalPrice);
+		}
+		
 		String removeOrAddInput = input.nextLine();
 		
 		while(!removeOrAddInput.equals("0")) {
@@ -198,18 +212,19 @@ public class OrderPanel
 		}
 		System.out.println("Total price: " +totalPrice);
 		
-		this.newOrder.setShoppingCart(shoppingCart);
-		this.newOrder.setTotalPrice(totalPrice);
+		order.setShoppingCart(shoppingCart);
+		order.setTotalPrice(totalPrice);
 		
 		//move to cart panel to select payment method
-		System.out.println("Press 1 to proceed to cart");
+		System.out.println("1.Proceed to checkout");
 		int numPress = input.nextInt();
 		if(numPress == 1)
 		{
-			propertyChangeHandler.firePropertyChange("CartPanel", 0, 1);
+			propertyChangeHandler.firePropertyChange("CheckoutPanel", 0, order);
 		}
 	}
 
+	
 	
 	public void setPropertyChangeSupport() 
 	{
@@ -218,9 +233,6 @@ public class OrderPanel
 	public void addPropertyChangeListener(PropertyChangeListener listener)
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener); 
-	}
-	public Order getNewOrder() {
-		return this.newOrder;
 	}
 
 }

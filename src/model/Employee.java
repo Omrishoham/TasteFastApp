@@ -1,16 +1,61 @@
 package model;
 
+import java.util.Date;
+
 public abstract class Employee implements User {
 	protected String userName;
 	protected String password;
+	protected double salaryPerHour;
+	protected Date login_time;
+	protected boolean ifManager=false;
 	
-	public Employee(String username, String password)
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Employee(String username, String password,double salaryPerHour)
 	{
 		this.userName = username;
 		this.password = password;
-	}
-	public String getUserName() {
-		return this.userName;
+		this.salaryPerHour = salaryPerHour;
 	}
 
+	
+	@Override
+	public String getUsername() {
+		return this.userName;
+	}
+	
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+	public double getsalaryPerHour() 
+	{
+		return this.salaryPerHour;
+	}
+	
+//On log out will calculate the total income of the shift for the employee
+	public double calcWorkTime() 
+	{
+		
+		//"new" get the time now
+		Date end_working=new Date();
+		
+		//calculate the time from login until logout
+		double total_time=end_working.getTime()-login_time.getTime();
+		
+		//calculate the amount of minutes in the work
+		total_time=total_time/1000/60;
+		
+		//calculate of wages per minute of the employee
+		double salary_per_minute=salaryPerHour/60;
+		
+		//calculate of wages for that day
+		double total=total_time*salary_per_minute;
+		
+		return total;
+	}
 }
+
+

@@ -5,11 +5,11 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Scanner;
 
+import model.Client;
+
 public class ClientLoginPanel 
 {
-	String username;
-	String password;
-	
+	private Client client;
 	private PropertyChangeSupport propertyChangeHandler;
 	
 	public ClientLoginPanel()
@@ -18,8 +18,9 @@ public class ClientLoginPanel
 	}
 	
 	public void panelActivity()
-	{////////שיטרית צריך פה לשנות לחלון של לוגין לקליינטים שבו נאמת את הלקוח ואז נעבור לאפשרויות שלו בחלון אחר שנעשה
+	{
 		Scanner input = new Scanner(System.in);
+		client = new Client();
 		System.out.println("Login:\n");
 		
 		System.out.println("username: ");
@@ -29,7 +30,7 @@ public class ClientLoginPanel
 			System.out.println("error! enter again username:");
 			username = input.nextLine();
 		}
-		this.username = username;
+		this.client.setUsername(username);
 		
 		System.out.println("password:");
 		String password = input.nextLine();
@@ -38,21 +39,11 @@ public class ClientLoginPanel
 			System.out.println("error! enter again password:");
 			password = input.nextLine();
 		}
-		this.password = password;
+		this.client.setPassword(password);
 		
 		//controller checks if client in DB
-		propertyChangeHandler.firePropertyChange("ClientLoginEvent",0,1);
+		propertyChangeHandler.firePropertyChange("ClientLoginEvent",0,this.client);
 	}
-
-	public String getClientLoginPanelUsername() {
-		return this.username;
-	}
-	
-	public String getClientLoginPanelPassword() {
-		return this.password;
-	}
-
-
 
 	
 	public void setPropertyChangeSupport() 

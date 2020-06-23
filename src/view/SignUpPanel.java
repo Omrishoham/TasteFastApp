@@ -4,8 +4,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Scanner;
 
+import model.Client;
+
 public class SignUpPanel
 {
+	private Client client;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -23,7 +26,7 @@ public class SignUpPanel
 		Scanner input = new Scanner(System.in);
 		System.out.println("enter first name:");
 		String firstName = input.nextLine();
-		while(firstName=="")
+		while(firstName.equals(""))
 		{
 			System.out.println("enter valid first name:");
 			firstName = input.nextLine();
@@ -32,16 +35,16 @@ public class SignUpPanel
 		
 		System.out.println("enter last name:");
 		String lastName = input.nextLine();
-		while(lastName=="")
+		while(lastName.equals(""))
 		{
 			System.out.println("enter valid last name:");
 			lastName = input.nextLine();
 		}
 		this.lastName = lastName;
 		
-		System.out.println("enter last name:");
+		System.out.println("enter email:");
 		String email = input.nextLine();
-		while(email=="")
+		while(email.equals(""))
 		{
 			System.out.println("enter valid last name:");
 			email = input.nextLine();
@@ -50,7 +53,7 @@ public class SignUpPanel
 		
 		System.out.println("enter username:");
 		String username = input.nextLine();
-		while(username=="")
+		while(username.equals(""))
 		{
 			System.out.println("enter valid last username");
 			username = input.nextLine();
@@ -59,14 +62,19 @@ public class SignUpPanel
 		
 		System.out.println("enter password:");
 		String password = input.nextLine();
-		while(password=="")
+		while(password.equals(""))
 		{
 			System.out.println("enter valid password:");
 			password = input.nextLine();
 		}
 		this.password = password;
 		
-		propertyChangeHandler.firePropertyChange("SignUpEvent",0,1);
+		//create new client object
+		this.client = new Client(username,password,email,firstName,lastName);
+		
+		//fire info to controller that push data to clientDB
+		propertyChangeHandler.firePropertyChange("SignUpClientEvent",0,this.client);
+		
 		System.out.println("user sign up successfuly");
 		System.out.println("To login press 1");
 		int numPress = input.nextInt();
@@ -82,28 +90,6 @@ public class SignUpPanel
 	public void addPropertyChangeListener(PropertyChangeListener listener)
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener);
-	}
-	
-	public String getUsernameSignUPClient() {
-		return this.username;
-	}
-	
-	public String getPasswordSignUPClient() {
-		return this.password;
-		
-	}
-	
-	public String getFirstNameSignUpClient() {
-		return this.firstName;
-	}
-	
-	public String getLastNameSignUpClient() {
-		return this.password;
-		
-	}
-	
-	public String getEmailSignUpClient() {
-		return this.username;
 	}
 	
 

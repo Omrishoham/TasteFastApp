@@ -4,32 +4,22 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Scanner;
 
-import model.Client;
+import model.Employee;
 
-public class ClientPanel {
-	
+public class EmployeeLoginPanel {
 	private PropertyChangeSupport propertyChangeHandler;
+	private Employee employee;
 	
-	public ClientPanel()
+	public EmployeeLoginPanel()
 	{
 		setPropertyChangeSupport();
 	}
 	
-	public void panelActivity(Client client) {
+	public void panelActivity()
+	{
 		
-		System.out.println("Hi "+client.getUsername()+"!");
-		System.out.println("1.Make an order");
 		Scanner input = new Scanner(System.in);
-		int numPress = input.nextInt();
 		
-		switch (numPress) {
-		case 1:
-			propertyChangeHandler.firePropertyChange("OrderPanel",0,client); //goes to resturant menu
-			break;
-
-		default:
-			break;
-		}
 	}
 	
 	public void setPropertyChangeSupport() 
@@ -40,5 +30,4 @@ public class ClientPanel {
 	{
 		propertyChangeHandler.addPropertyChangeListener(listener); 
 	}
-
 }

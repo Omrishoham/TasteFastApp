@@ -19,13 +19,13 @@ public class AppModel {
 	}
 
 //put new client info in Database
-	public void signUpClient(String username, String password, String email, String firstName, String lastName) {
-		clientsDB.insertInfo(username, password, email, firstName, lastName);
+	public void signUpClient(Client client) {
+		clientsDB.insertInfo(client.getUsername(),client.getPassword(),client.getEmail(),client.getFirstName(),client.getLastName());
 	}
 	
 	//put new order in database
-	public void inserNewOrder(String username,int orderNumber,double totalPrice,String creditCardNum,String creditCardVal) {
-		ordersDB.insertOrder(username, orderNumber, totalPrice, creditCardNum, creditCardVal);
+	public void inserNewOrder(Order order) {
+		ordersDB.insertOrder(order.getWhoOrdered(), order.getOrderID(), order.getTotalPrice(), order.getCreditCardNumber(), order.getValidityCreditCard());
 	}
 
 //return if client is in the Database
