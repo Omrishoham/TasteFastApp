@@ -57,6 +57,7 @@ public class CheckoutPanel {
 			}
 			order.setValidityCreditCard(validity);
 			System.out.println("Thanks, Your Order received successfuly!");
+			order.setOrderDate();
 
 			// taking care of insert order to orders database
 			propertyChangeHandler.firePropertyChange("InsertNewOrderEvent", 0, order);

@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import model.AppModel;
 import model.Client;
+import model.Employee;
 import model.Order;
 import view.AppView;
 
@@ -40,6 +41,25 @@ public class AppController implements PropertyChangeListener {
 		else if(event.getPropertyName().equals("InsertNewOrderEvent"))
 		{
 			model.inserNewOrder(((Order)event.getNewValue()));
+		}
+		//check if employee exist in database ,after that check if its a manager or employee
+		else if(event.getPropertyName().equals("EmployeeLoginEvent"))
+		{
+			//check if employee in database
+			if(model.loginEmployeeAuth(((Employee)event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()))
+			{
+				//check if is a manager, and wither way place the other values to object employee 
+				if(model.ifEmployeeManager(((Employee)event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()))
+						{
+					      view.changeWindows("ManagerPanel", (Object)model.placeValues(((Employee) event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()));
+						}
+				view.changeWindows("WaiterPanel", (Object)model.placeValues(((Employee) event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()));
+			}
+			else{
+		
+			view.loginErrorMsg();
+			view.changeWindows("EmployeeLoginPanel", null);
+			}
 		}
 			
 	}

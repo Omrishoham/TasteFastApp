@@ -24,7 +24,7 @@ public class IntroPanel
 			propertyChangeHandler.firePropertyChange("ClientLoginPanel",0,1);
 			break;
 		case 2:
-			
+			propertyChangeHandler.firePropertyChange("EmployeeLoginPanel", 0, 1);
 			break;
 		case 3:
 			propertyChangeHandler.firePropertyChange("SignUpPanel",0,1);

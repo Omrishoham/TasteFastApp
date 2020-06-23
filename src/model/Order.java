@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.Date;
 
 public class Order
 {
@@ -13,6 +14,7 @@ public class Order
 	private String orderID;
 	private String creditCardNumber;
 	private String validityCreditCard;
+	private Date orderTime;
 	
 	public Order(String username)
 	{
@@ -60,6 +62,14 @@ public class Order
 	public String getValidityCreditCard()
 	{
 		return this.validityCreditCard;
+	}
+	public Date getOrderDate()
+	{
+		return this.orderTime;
+	}
+	public void setOrderDate()
+	{
+		this.orderTime = new Date();
 	}
 	
 }

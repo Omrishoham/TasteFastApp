@@ -2,12 +2,12 @@ package model;
 
 import java.util.Date;
 
-public abstract class Employee implements User {
-	protected String userName;
+public class Employee implements User {
+	protected String username;
 	protected String password;
 	protected double salaryPerHour;
 	protected Date login_time;
-	protected boolean ifManager=false;
+	protected boolean isManager;
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
@@ -15,7 +15,7 @@ public abstract class Employee implements User {
 	
 	public Employee(String username, String password,double salaryPerHour)
 	{
-		this.userName = username;
+		this.username = username;
 		this.password = password;
 		this.salaryPerHour = salaryPerHour;
 	}
@@ -23,9 +23,8 @@ public abstract class Employee implements User {
 	
 	@Override
 	public String getUsername() {
-		return this.userName;
+		return this.username;
 	}
-	
 	@Override
 	public String getPassword() {
 		return this.password;
@@ -34,6 +33,31 @@ public abstract class Employee implements User {
 	{
 		return this.salaryPerHour;
 	}
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
+	public void setPassword(String password)
+	{
+		this.password = password;
+	}
+	public void setSalaryPerHour(double salary)
+	{
+		this.salaryPerHour = salary;;
+	}
+	public void setLoginTime()
+	{
+		this.login_time=new Date();
+	}
+	public boolean getIsManager()
+	{
+		return this.isManager;
+	}
+	public void setIsManager(boolean bol)
+	{
+		this.isManager = bol;
+	}
+	
 	
 //On log out will calculate the total income of the shift for the employee
 	public double calcWorkTime() 

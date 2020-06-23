@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 import model.Client;
+import model.Employee;
 import model.Order;
 
 public class AppView implements PropertyChangeListener {
@@ -19,6 +20,8 @@ public class AppView implements PropertyChangeListener {
 	private SignUpPanel signUpPanel;
 	private CheckoutPanel checkoutPanel;
 	private EmployeeLoginPanel employeeLoginPanel;
+	private WaiterPanel waiterPanel;
+	private ManagerPanel managerPanel;
 
 	public AppView() {
 		setPropertyChangeSupport();
@@ -30,6 +33,8 @@ public class AppView implements PropertyChangeListener {
 		signUpPanel = new SignUpPanel();
 		checkoutPanel = new CheckoutPanel();
 		employeeLoginPanel = new EmployeeLoginPanel();
+		waiterPanel = new WaiterPanel();
+		managerPanel = new ManagerPanel();
 
 		orderPanel.addPropertyChangeListener(this);
 		introPanel.addPropertyChangeListener(this);
@@ -38,9 +43,11 @@ public class AppView implements PropertyChangeListener {
 		signUpPanel.addPropertyChangeListener(this);
 		checkoutPanel.addPropertyChangeListener(this);
 		employeeLoginPanel.addPropertyChangeListener(this);
+		waiterPanel.addPropertyChangeListener(this);
+		managerPanel.addPropertyChangeListener(this);
 
 	}
-	
+
 	public void start() {
 		introPanel.panelActivity();
 	}
@@ -55,24 +62,23 @@ public class AppView implements PropertyChangeListener {
 
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equals("OrderPanel")) {
-			changeWindows("OrderPanel",event.getNewValue());
+			changeWindows("OrderPanel", event.getNewValue());
 		} else if (event.getPropertyName().equals("ClientLoginPanel")) {
-			changeWindows("ClientLoginPanel",null);
+			changeWindows("ClientLoginPanel", null);
 
 		} else if (event.getPropertyName().equals("EmployeeLogin")) {
-			changeWindows("EmployeeLogin",null);
+			changeWindows("EmployeeLogin", null);
+		} else if (event.getPropertyName().equals("EmployeeLoginPanel")) {
+			changeWindows("EmployeeLoginPanel", null);
 
 		} else if (event.getPropertyName().equals("SignUpPanel")) {
-			changeWindows("SignUpPanel",null);
-		} else if(event.getPropertyName().equals("IntroPanel")){
-			changeWindows("IntroPanel",null);
-		}
-		else if(event.getPropertyName().equals("CheckoutPanel")) {
-			changeWindows("CheckoutPanel",event.getNewValue());
-		}
-		else if(event.getPropertyName().equals("ReturnToOrderPanel"))
-		{
-			changeWindows("ReturnToOrderPanel",event.getNewValue());
+			changeWindows("SignUpPanel", null);
+		} else if (event.getPropertyName().equals("IntroPanel")) {
+			changeWindows("IntroPanel", null);
+		} else if (event.getPropertyName().equals("CheckoutPanel")) {
+			changeWindows("CheckoutPanel", event.getNewValue());
+		} else if (event.getPropertyName().equals("ReturnToOrderPanel")) {
+			changeWindows("ReturnToOrderPanel", event.getNewValue());
 		}
 
 		else {
@@ -81,12 +87,13 @@ public class AppView implements PropertyChangeListener {
 		}
 
 	}
-	//change to window and getting some value if we need to
-	public void changeWindows(String newPanel,Object obj) {
+
+	// change to window and getting some value if we need to
+	public void changeWindows(String newPanel, Object obj) {
 		switch (newPanel) {
 		case "IntroPanel":
 			introPanel.panelActivity();
-			
+
 		case "SignUpPanel":
 			signUpPanel.panelActivity();
 			break;
@@ -96,23 +103,30 @@ public class AppView implements PropertyChangeListener {
 			break;
 
 		case "ClientPanel":
-			clientPanel.panelActivity((Client)obj);
+			clientPanel.panelActivity((Client) obj);
 			break;
 
 		case "OrderPanel":
-			orderPanel.panelActivity((Client)obj);
+			orderPanel.panelActivity((Client) obj);
 			break;
-			
+
 		case "ReturnToOrderPanel":
 			orderPanel.makeOrder((Order) obj);
 			break;
 
 		case "CheckoutPanel":
-			checkoutPanel.panelActivity((Order)obj);
+			checkoutPanel.panelActivity((Order) obj);
 			break;
+		case "WaiterPanel":
+			waiterPanel.panelActivity((Employee) obj);
+			break;
+		case "ManagerPanel":
+			managerPanel.panelActivity((Employee) obj);
+			break;
+		case "EmployeeLoginPanel":
+			employeeLoginPanel.panelActivity();
 		}
 	}
-
 
 	public void loginErrorMsg() {
 		System.out.println("User is not found!");

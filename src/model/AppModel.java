@@ -8,12 +8,15 @@ public class AppModel {
 	private PropertyChangeSupport propertyChangeHandler;
 	private ClientsDB clientsDB;
 	private OrdersDB ordersDB;
-	
+	private EmployeesDB employeesDB;
+	private ArrayList<Employee> onShiftEmpolyees;
 
 	public AppModel() {
 		setPropertyChangeSupport();
 		clientsDB = ClientsDB.getInstance();
 		ordersDB = OrdersDB.getInstance();
+		employeesDB = EmployeesDB.getInstance();
+		onShiftEmpolyees=new ArrayList<Employee>();
 			
 		
 	}
@@ -23,9 +26,10 @@ public class AppModel {
 		clientsDB.insertInfo(client.getUsername(),client.getPassword(),client.getEmail(),client.getFirstName(),client.getLastName());
 	}
 	
+	
 	//put new order in database
 	public void inserNewOrder(Order order) {
-		ordersDB.insertOrder(order.getWhoOrdered(), order.getOrderID(), order.getTotalPrice(), order.getCreditCardNumber(), order.getValidityCreditCard());
+		ordersDB.insertOrder(order.getWhoOrdered(), order.getOrderID(), order.getTotalPrice(), order.getCreditCardNumber(), order.getValidityCreditCard(),order.getOrderDate());
 	}
 
 //return if client is in the Database
@@ -33,6 +37,21 @@ public class AppModel {
 
 		return clientsDB.loginAuthentication(username, password);
 	}
+	
+	public boolean loginEmployeeAuth(String username, String password) {
+
+		return employeesDB.loginAuthentication(username, password);
+	}
+	public boolean ifEmployeeManager(String username,String password)
+	{
+		return employeesDB.isManager(username,password);
+	}
+	
+	public Employee placeValues(String username,String password)
+	{
+		return employeesDB.placeValues(username, password);
+	}
+	
 
 	public void setPropertyChangeSupport() {
 		propertyChangeHandler = new PropertyChangeSupport(this);

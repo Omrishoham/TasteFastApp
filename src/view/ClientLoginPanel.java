@@ -21,7 +21,7 @@ public class ClientLoginPanel
 	{
 		Scanner input = new Scanner(System.in);
 		client = new Client();
-		System.out.println("Login:\n");
+		System.out.println("Login:");
 		
 		System.out.println("username: ");
 		String username = input.nextLine();
