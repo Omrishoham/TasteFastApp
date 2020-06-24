@@ -16,7 +16,7 @@ public class IntroPanel
 	public void panelActivity()
 	{
 		Scanner input = new Scanner(System.in);
-		System.out.println("1.Login as client\n2.Login as employee\n3.Sign up as client" );
+		System.out.println("1.Login as client\n2.Login as waiter/manager\n3.Sign up as client" );
 		int numPress = input.nextInt();
 		
 		switch(numPress) {

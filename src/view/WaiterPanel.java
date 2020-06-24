@@ -15,9 +15,9 @@ public class WaiterPanel {
 		setPropertyChangeSupport();
 	}
 	
-	public void panelActivity(Employee employee)
+	public void panelActivity(Waiter waiter)
 	{
-		this.waiter = new Waiter(employee.getUsername(),employee.getPassword(),employee.getsalaryPerHour());
+		this.waiter = waiter;
 		
 	}
 	

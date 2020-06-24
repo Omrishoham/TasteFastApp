@@ -3,10 +3,14 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+
 import model.AppModel;
 import model.Client;
 import model.Employee;
+import model.Manager;
 import model.Order;
+import model.Waiter;
 import view.AppView;
 
 
@@ -34,7 +38,7 @@ public class AppController implements PropertyChangeListener {
 				view.changeWindows("ClientPanel",event.getNewValue()); //after success login move to client panel
 			}
 			else {
-				view.loginErrorMsg(); //prints error message
+				view.Msg("user is not found!!"); //prints error message
 				view.changeWindows("ClientLoginPanel",null); //login again if wrong user
 			}
 		}
@@ -50,16 +54,49 @@ public class AppController implements PropertyChangeListener {
 			{
 				//check if is a manager, and wither way place the other values to object employee 
 				if(model.ifEmployeeManager(((Employee)event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()))
-						{
-					      view.changeWindows("ManagerPanel", (Object)model.placeValues(((Employee) event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()));
-						}
-				view.changeWindows("WaiterPanel", (Object)model.placeValues(((Employee) event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()));
+				{		
+					      Employee employee = model.placeValues(((Employee) event.getNewValue()).getUsername(), ((Employee) event.getNewValue()).getPassword());
+					      Manager manager = new Manager(employee.getUsername(),employee.getPassword(),employee.getsalaryPerHour());
+					      view.changeWindows("ManagerPanel",(Object)manager);
+				}		
+				else 
+				{
+				Employee employee = model.placeValues(((Employee) event.getNewValue()).getUsername(), ((Employee) event.getNewValue()).getPassword());
+			    Waiter waiter = new Waiter(employee.getUsername(),employee.getPassword(),employee.getsalaryPerHour());
+			    view.changeWindows("WaiterPanel",(Object)waiter);
+				}
 			}
-			else{
-		
-			view.loginErrorMsg();
+			else
+			{
+			view.Msg("user is not found!!");
 			view.changeWindows("EmployeeLoginPanel", null);
 			}
+		}
+		else if(event.getPropertyName().equals("PrintOrdersEvent")) {
+			model.printOrders();
+			view.changeWindows("ManagerPanel", event.getNewValue());
+		}
+		else if(event.getPropertyName().equals("AddEmployeeEvent")) {
+			if(!model.ifExist(((Employee) event.getNewValue()).getUsername())) {
+				model.addEmployee((Employee)event.getNewValue());
+				view.Msg("employee added successfuly!");
+				view.changeWindows("ManagerPanel", event.getOldValue());
+			}
+			else {
+				view.Msg("username's employee is exist!!");
+				view.changeWindows("AddEmployeePanel", event.getOldValue());
+			}		
+		}
+		else if(event.getPropertyName().equals("RemoveEmployeeEvent")){
+			if(model.ifExist((String)event.getNewValue())) {
+				model.removeEmployee((String)event.getNewValue());
+				view.Msg("employee removed successfuly!");
+				view.changeWindows("ManagerPanel", event.getOldValue());
+			}
+			else {
+				view.Msg("employee not found!!");
+				view.changeWindows("RemoveEmployeePanel", event.getOldValue());
+			}		
 		}
 			
 	}

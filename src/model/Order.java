@@ -23,6 +23,15 @@ public class Order
         this.orderID=UUID.randomUUID().toString();
         this.shoppingCart= new ArrayList<>();
 	}
+	
+	public void printOrder() {
+		int year = orderTime.getYear()+1900;
+		int month = orderTime.getMonth()+1;
+		System.out.println("Order ID: " +this.orderID
+							+"\nTotal Price: " +this.totalPrice
+							+"\nOrder Time:"+orderTime.getDate()+"/"+month+"/"+year
+							+"\nOrdered by: " +this.whoOrdered);
+	}
 	public void setShoppingCart(ArrayList<ItemsInMenu> shoppingCart)
 	{
 		this.shoppingCart = shoppingCart;

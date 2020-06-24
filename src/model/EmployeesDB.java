@@ -21,18 +21,58 @@ public class EmployeesDB extends Database {
 	}
 
 	
-	public void insertInfo(String username, String password) {
+	public void addEmployee(String username,String password,double salaryperhour,boolean ismanager) {
 
 		try (Connection connect = this.connectToDB()) {
-			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password) VALUES(?,?)");
+			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password,salaryperhour,ismanager) VALUES(?,?,?,?)");
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
+			pstmt.setDouble(3, salaryperhour);
+			pstmt.setBoolean(4, ismanager);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+	// remove employee with the exactly username
+	public void removeEmployee(String username) {
+        String sql = "DELETE FROM employees WHERE username = ?";
+        
+        try (Connection conn = this.connectToDB();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+ 
+            // set the corresponding param
+            pstmt.setString(1, username);
+            // execute the delete statement
+            pstmt.executeUpdate();
+			}
+		 catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+}
+
+
+		
+		//check if username exist in database
+	public boolean ifExist(String username) {
+		String sql = "SELECT username FROM employees";
+
+		try (Connection connect = this.connectToDB();
+				Statement stmt = connect.createStatement();
+				ResultSet resultSet = stmt.executeQuery(sql)) {
+			// loop through the result set
+			while (resultSet.next()) {
+				if (resultSet.getString("username").equals(username))
+					return true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+
+	}
+	
 
 	// gets userName and pass strings and checks they got a match in login table
 	public boolean loginAuthentication(String username, String password) {

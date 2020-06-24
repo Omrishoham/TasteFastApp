@@ -26,13 +26,14 @@ public class OrdersDB extends Database
         try
         {
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO orders(username,orderid,totalprice,creditcardnum,creditcardval,orderdate,ordertime) VALUES(?,?,?,?,?,?,?)");
-            int year = orderTime.getYear()+1900;
+            int year = 1900+orderTime.getYear();//adjust date object to precise year
+            int month = orderTime.getMonth()+1;//adjust date object to precise month
             pstmt.setString(1, username);
             pstmt.setString(2, orderID);
             pstmt.setDouble(3,totalPrice);
             pstmt.setString(4, creditCardNum);
             pstmt.setString(5, creditCardVal);
-            pstmt.setString(6,orderTime.getDay()+"/"+orderTime.getMonth()+"/"+year);
+            pstmt.setString(6,+orderTime.getDate()+"/"+month+"/"+year);
             pstmt.setString(7, orderTime.getHours()+":"+orderTime.getMinutes());
             pstmt.executeUpdate();
         	
