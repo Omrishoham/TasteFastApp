@@ -10,6 +10,13 @@ public class EmployeesDB extends Database {
 	private static EmployeesDB instance = null;
 
 	private EmployeesDB() {
+		try (Connection connect = this.connectToDB()) {
+			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password,salaryperhour,ismanager) VALUES(admin,admin,100,true)");
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static EmployeesDB getInstance() // use singleton design pattern
