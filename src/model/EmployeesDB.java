@@ -70,7 +70,6 @@ public class EmployeesDB extends Database {
 			System.out.println(e.getMessage());
 		}
 		return false;
-
 	}
 	
 
@@ -131,6 +130,26 @@ public class EmployeesDB extends Database {
 			System.out.println(e.getMessage());
 		}
 		return false;
+	}
+	
+	public void updateToManager(String username,double newsalaryperhour) {
+		 String sql = "UPDATE employees SET ismanager = ? ,salaryperhour=? "
+	                + "WHERE userName = ?";
+	 
+	        try (Connection conn = this.connectToDB();
+	                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	 
+	            // set the corresponding param
+	            pstmt.setBoolean(1, true);
+	            pstmt.setDouble(2, newsalaryperhour);
+	            pstmt.setString(3, username);
+	            // update 
+	            pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	           
+	        }
+	      
 	}
 
 }

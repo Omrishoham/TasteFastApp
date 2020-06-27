@@ -27,7 +27,6 @@ public class ClientsDB extends Database {
 
 		try {
 			Connection connect = this.connectToDB();
-			System.out.println("trying to connect");
 			PreparedStatement pstmt = connect.prepareStatement(sqlString);
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
@@ -40,6 +39,24 @@ public class ClientsDB extends Database {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	//check if username or email exists
+	public boolean ifClientExist(String username,String email) {
+		String sql = "SELECT username,email FROM clients";
+
+		try (Connection connect = this.connectToDB();
+				Statement stmt = connect.createStatement();
+				ResultSet resultSet = stmt.executeQuery(sql)) {
+			// loop through the result set
+			while (resultSet.next()) {
+				if (resultSet.getString("username").equals(username)||resultSet.getString("email").equals(email))
+					return true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+
 	}
 
 	// gets userName and pass strings and checks they got a match in login table

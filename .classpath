@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/omris/OneDrive/שולחן העבודה/פרויקט הנדסת תוכנה/Projects/TasteFastApp/postgresql-42.2.14.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/omris/OneDrive/שולחן העבודה/פרויקט הנדסת תוכנה/Projects/TasteFastApp/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

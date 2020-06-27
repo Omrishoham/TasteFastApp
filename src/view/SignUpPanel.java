@@ -75,7 +75,6 @@ public class SignUpPanel
 		//fire info to controller that push data to clientDB
 		propertyChangeHandler.firePropertyChange("SignUpClientEvent",0,this.client);
 		
-		System.out.println("user sign up successfuly");
 		System.out.println("To login press 1");
 		int numPress = input.nextInt();
 		if(numPress==1)

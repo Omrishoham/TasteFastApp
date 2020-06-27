@@ -21,6 +21,11 @@ public class AppModel {
 		allOrders = new ArrayList<Order>();
 
 	}
+	//update waiter to manager and new salary for him
+	public void updateToManager(String username,double newsalarypaerhour) {
+		employeesDB.updateToManager(username,newsalarypaerhour);
+		
+	}
 
 //put new client info in Database
 	public void signUpClient(Client client) {
@@ -29,13 +34,13 @@ public class AppModel {
 	}
 	//put new waiter to database
 	public void addEmployee(Employee employee) {
-		employeesDB.addEmployee(employee.getUsername(),employee.getPassword(),employee.getsalaryPerHour(),employee.getIsManager());
+		employeesDB.addEmployee(employee.getUsername(),employee.getPassword(),employee.getSalaryPerHour(),employee.getIsManager());
 	}
 	public void removeEmployee(String username) {
 		employeesDB.removeEmployee(username);
 	}
 	
-	public boolean ifExist(String username)
+	public boolean ifEmployeeExist(String username)
 	{
 		return employeesDB.ifExist(username);
 	}
@@ -53,6 +58,9 @@ public class AppModel {
 		return clientsDB.loginAuthentication(username, password);
 	}
 
+	public boolean ifClientExist(String username,String email) {
+		return clientsDB.ifClientExist(username,email);
+	}
 	public boolean loginEmployeeAuth(String username, String password) {
 
 		return employeesDB.loginAuthentication(username, password);
@@ -74,7 +82,10 @@ public class AppModel {
 				order.printOrder();
 			}
 		}
-
+	}
+	//add logined employee to list on shift employees
+	public void setEmployeeOnShift(Employee employee) {
+		onShiftEmpolyees.add(employee);
 	}
 
 	public void setPropertyChangeSupport() {

@@ -29,7 +29,7 @@ public class Employee implements User {
 	public String getPassword() {
 		return this.password;
 	}
-	public double getsalaryPerHour() 
+	public double getSalaryPerHour() 
 	{
 		return this.salaryPerHour;
 	}

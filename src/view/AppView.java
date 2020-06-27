@@ -26,6 +26,7 @@ public class AppView implements PropertyChangeListener {
 	private ManagerPanel managerPanel;
 	private AddEmployeePanel addEmployeePanel;
 	private RemoveEmployeePanel removeEmployeePanel;
+	private UpdateToManagerPanel updateToManagerPanel;
 
 	public AppView() {
 		setPropertyChangeSupport();
@@ -41,6 +42,7 @@ public class AppView implements PropertyChangeListener {
 		managerPanel = new ManagerPanel();
 		addEmployeePanel = new AddEmployeePanel();
 		removeEmployeePanel = new RemoveEmployeePanel();
+		updateToManagerPanel = new  UpdateToManagerPanel();
 
 		orderPanel.addPropertyChangeListener(this);
 		introPanel.addPropertyChangeListener(this);
@@ -53,6 +55,7 @@ public class AppView implements PropertyChangeListener {
 		managerPanel.addPropertyChangeListener(this);
 		addEmployeePanel.addPropertyChangeListener(this);
 		removeEmployeePanel.addPropertyChangeListener(this);
+		updateToManagerPanel.addPropertyChangeListener(this);
 
 	}
 
@@ -91,6 +94,9 @@ public class AppView implements PropertyChangeListener {
 			changeWindows("AddEmployeePanel", event.getNewValue());
 		} else if (event.getPropertyName().equals("RemoveEmployeePanel")) {
 			changeWindows("RemoveEmployeePanel", event.getNewValue());
+		}
+		else if (event.getPropertyName().equals("UpdateToManagerPanel")) {
+			changeWindows("UpdateToManagerPanel", event.getNewValue());
 		}
 
 		else {
@@ -145,6 +151,9 @@ public class AppView implements PropertyChangeListener {
 			break;
 		case "RemoveEmployeePanel":
 			removeEmployeePanel.panelActivity((Manager)obj);
+			break;
+		case "UpdateToManagerPanel":
+			updateToManagerPanel.panelActivity((Manager)obj);
 			break;
 		}
 	}

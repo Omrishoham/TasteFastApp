@@ -23,7 +23,7 @@ public class ManagerPanel {
 		this.manager = manager;
 		Scanner input = new Scanner(System.in);
 		System.out.println("Hi manager "+this.manager.getUsername()+",");
-		System.out.println("Here are you options\n1.See All Orders\n2.Add employee to resturant\n3.Remove employee from resturant\n4.See hou much money in checkout\n5.Make waiter a manager\n6.update waiter's salary per hour\n7.Logout");
+		System.out.println("Here are you options\n1.See All Orders\n2.Add employee to resturant\n3.Remove employee from resturant\n4.See hou much money in checkout today\n5.Make waiter a manager\n6.update waiter's salary per hour\n7.Logout");
 		int numPress = input.nextInt();
 		switch(numPress) {
 		case 1:
@@ -35,6 +35,20 @@ public class ManagerPanel {
 		case 3:
 			propertyChangeHandler.firePropertyChange("RemoveEmployeePanel", 0, this.manager);
 			break;
+		case 4:
+			//!!!!!!!חסר
+			break;
+		case 5:
+			propertyChangeHandler.firePropertyChange("UpdateToManagerPanel", 0, this.manager);
+			break;
+		case 6:
+			//!!!!!!!חסר
+			break;
+		case 7:
+			//!!!!!!!חסר
+			break;
+			
+			
 		}
 	}
 	
