@@ -30,14 +30,29 @@ public class AddEmployeePanel {
 				System.out.println("error! enter again password:");
 				password = input.nextLine();
 			}
+			System.out.println("Enter employee's first name: ");
+			String firstName = input.nextLine();
+			while(firstName.equals(""))
+			{
+				System.out.println("error! enter again first name:");
+				firstName = input.nextLine();
+			}
+			System.out.println("Enter employee's last name: ");
+			String lastName = input.nextLine();
+			while(lastName.equals(""))
+			{
+				System.out.println("error! enter again last name:");
+				lastName = input.nextLine();
+			}
+			System.out.println("Is Manager ? (if yes write-true, if no write-false): ");
+			boolean isManager = input.nextBoolean();
+			
 			System.out.println("Enter employee's salary per hour: ");
 			double salaryperhour = input.nextDouble();
 			
-			Employee newEmployee = new Employee(username,password,salaryperhour);
-			
-			System.out.println("Is Manager ? (if yes write-true, if no write-false): ");
-			boolean isManager = input.nextBoolean();
-			newEmployee.setIsManager(isManager);
+
+			Employee newEmployee = new Employee(username,password,isManager,salaryperhour,0,firstName,lastName);
+		
 			
 			propertyChangeHandler.firePropertyChange("AddEmployeeEvent", manager, newEmployee);
 		

@@ -10,14 +10,9 @@ public class EmployeesDB extends Database {
 	private static EmployeesDB instance = null;
 
 	private EmployeesDB() {
-		try (Connection connect = this.connectToDB()) {
-			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password,salaryperhour,ismanager) VALUES(admin,admin,100,true)");
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+	
 	}
+		
 
 	public static EmployeesDB getInstance() // use singleton design pattern
 	{
@@ -28,14 +23,17 @@ public class EmployeesDB extends Database {
 	}
 
 	
-	public void addEmployee(String username,String password,double salaryperhour,boolean ismanager) {
+	public void addEmployee(String username,String password,boolean ismanager,double salaryperhour,double salarysum,String firstname,String lastname) {
 
 		try (Connection connect = this.connectToDB()) {
-			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password,salaryperhour,ismanager) VALUES(?,?,?,?)");
+			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO employees(username,password,ismanager,salaryperhour,salarysum,firstname,lastname) VALUES(?,?,?,?,?,?,?)");
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
-			pstmt.setDouble(3, salaryperhour);
-			pstmt.setBoolean(4, ismanager);
+			pstmt.setBoolean(3, ismanager);
+			pstmt.setDouble(4, salaryperhour);
+			pstmt.setDouble(5, salarysum);
+			pstmt.setString(6, firstname);
+			pstmt.setString(7, lastname);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -101,7 +99,7 @@ public class EmployeesDB extends Database {
 	}
 
 	public Employee placeValues(String username, String password) {
-		String sql = "SELECT username, password,salaryperhour FROM employees";
+		String sql = "SELECT username, password,ismanager,salaryperhour,salarysum,firstname,lastname FROM employees";
 		Employee employee = new Employee();
 		try (Connection connect = this.connectToDB();
 				Statement stmt = connect.createStatement();
@@ -111,7 +109,7 @@ public class EmployeesDB extends Database {
 			while (resultSet.next()) {
 				if (resultSet.getString("username").equals(username)
 						&& resultSet.getString("password").equals(password))
-					employee = new Employee(username, password, resultSet.getDouble("salaryperhour"));
+					employee = new Employee(username, password,resultSet.getBoolean("ismanager"),resultSet.getDouble("salaryperhour"),resultSet.getDouble("salarysum"),resultSet.getString("firstname"),resultSet.getString("lastname"));
 
 			}
 		} catch (SQLException e) {
@@ -158,5 +156,66 @@ public class EmployeesDB extends Database {
 	        }
 	      
 	}
+	
+	public void updateSalary(String username, double salaryPerHour) {
+		 String sql = "UPDATE employees SET salaryperhour=? "
+	                + "WHERE userName = ?";
+	 
+	        try (Connection conn = this.connectToDB();
+	                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	 
+	            // set the corresponding param
+	            pstmt.setDouble(1,salaryPerHour);
+	            pstmt.setString(2, username);
+	            // update 
+	            pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	           
+	        }
+		
+	}
+	
+    //After an employee logged out,this will update their total income
+    public void updateTotalSalary(String username,double todayIncome)
+    {
+        String sql = "UPDATE employees SET salarysum =salarysum+ ?  "
+                + "WHERE username = ?";
+        
+        try (Connection conn = this.connectToDB();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+ 
+            // set the corresponding param
+            pstmt.setDouble(1, todayIncome);
+            pstmt.setString(2, username);
+            // update 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
+        public double getSalaryCount(String username) {
+    	String sql = "SELECT username,salarySum FROM employees";
+        try (Connection conn = this.connectToDB();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+        	
+        	while (rs.next()) {
+        		if(rs.getString("username").equals(username))
+        		{
+        			return rs.getDouble("salarysum");
+        		}
+        	}
+               
+
+           } catch (SQLException e) {
+               System.out.println(e.getMessage());
+           }
+        return -1;
+    	
+    }
 
 }

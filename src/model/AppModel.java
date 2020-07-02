@@ -10,7 +10,6 @@ public class AppModel {
 	private OrdersDB ordersDB;
 	private EmployeesDB employeesDB;
 	private ArrayList<Employee> onShiftEmpolyees;
-	private ArrayList<Order> allOrders;
 
 	public AppModel() {
 		setPropertyChangeSupport();
@@ -18,7 +17,6 @@ public class AppModel {
 		ordersDB = OrdersDB.getInstance();
 		employeesDB = EmployeesDB.getInstance();
 		onShiftEmpolyees = new ArrayList<Employee>();
-		allOrders = new ArrayList<Order>();
 
 	}
 	//update waiter to manager and new salary for him
@@ -34,7 +32,7 @@ public class AppModel {
 	}
 	//put new waiter to database
 	public void addEmployee(Employee employee) {
-		employeesDB.addEmployee(employee.getUsername(),employee.getPassword(),employee.getSalaryPerHour(),employee.getIsManager());
+		employeesDB.addEmployee(employee.getUsername(),employee.getPassword(),employee.getIsManager(),employee.getSalaryPerHour(),employee.getSalarySum(),employee.getFirstName(),employee.getLastName());
 	}
 	public void removeEmployee(String username) {
 		employeesDB.removeEmployee(username);
@@ -47,9 +45,14 @@ public class AppModel {
 
 	// put new order in database
 	public void inserNewOrder(Order order) {
-		this.allOrders.add(order);
 		ordersDB.insertOrder(order.getWhoOrdered(), order.getOrderID(), order.getTotalPrice(),
-				order.getCreditCardNumber(), order.getValidityCreditCard(), order.getOrderDate());
+				order.getCreditCardNumber(), order.getValidityCreditCard(), order.getOrderTime(),order.getOrderDate());
+	}
+	
+	//update salary to employee
+	public void updateSalary(String username, double salaryPerHour)
+	{
+		employeesDB.updateSalary(username,salaryPerHour);
 	}
 
 //return if client is in the Database
@@ -73,19 +76,22 @@ public class AppModel {
 	public Employee placeValues(String username, String password) {
 		return employeesDB.placeValues(username, password);
 	}
-
-	public void printOrders() {
-		if (this.allOrders.isEmpty())
-			System.out.println("There are no orders at this time");
-		else {
-			for (Order order : allOrders) {
-				order.printOrder();
-			}
-		}
+	
+	public void updateTotalSalary(String username,double todayIncome) {
+		employeesDB.updateTotalSalary(username, todayIncome);
 	}
-	//add logined employee to list on shift employees
-	public void setEmployeeOnShift(Employee employee) {
-		onShiftEmpolyees.add(employee);
+	
+	public double getSalaryCount(String username) {
+		return employeesDB.getSalaryCount(username);
+	}
+	
+	
+	public ArrayList<Order> getOrdersDB(){
+		return ordersDB.getOrdersDB();
+	}
+	
+	public ArrayList<Employee> getOnShiftEmployees(){
+		return this.onShiftEmpolyees;
 	}
 
 	public void setPropertyChangeSupport() {

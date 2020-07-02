@@ -14,8 +14,11 @@ public class Order
 	private String orderID;
 	private String creditCardNumber;
 	private String validityCreditCard;
-	private Date orderTime;
+	private Date dateObj;
+	private String orderTime;
+	private String orderDate;
 	
+	//constructor for new order to insert to database
 	public Order(String username)
 	{
 		this.totalPrice=0;
@@ -24,13 +27,25 @@ public class Order
         this.shoppingCart= new ArrayList<>();
 	}
 	
+	//constructor for order we pull from database
+	public Order(String username,double totalPrice,String orderID,String orderTime,String orderDate)
+	{
+		this.whoOrdered = username;
+		this.totalPrice = totalPrice;
+		this.orderID = orderID;
+		this.orderDate = orderDate;
+		this.orderTime = orderTime;
+	}
+	
+	
+	
 	public void printOrder() {
-		int year = orderTime.getYear()+1900;
-		int month = orderTime.getMonth()+1;
 		System.out.println("Order ID: " +this.orderID
 							+"\nTotal Price: " +this.totalPrice
-							+"\nOrder Time:"+orderTime.getDate()+"/"+month+"/"+year
+							+"\nOrder Time:"+this.orderTime
+							+"\nOrder Date:"+this.orderDate
 							+"\nOrdered by: " +this.whoOrdered);
+							
 	}
 	public void setShoppingCart(ArrayList<ItemsInMenu> shoppingCart)
 	{
@@ -72,13 +87,20 @@ public class Order
 	{
 		return this.validityCreditCard;
 	}
-	public Date getOrderDate()
-	{
+	public String getOrderDate() {
+		return this.orderDate;
+	}
+	public String getOrderTime() {
 		return this.orderTime;
 	}
-	public void setOrderDate()
+	public void setDateAndTime()
 	{
-		this.orderTime = new Date();
+		this.dateObj = new Date();
+		int year = dateObj.getYear()+1900;
+		int month = dateObj.getMonth()+1;
+		this.orderDate = dateObj.getDate()+"/"+month+"/"+year;
+		this.orderTime=dateObj.getHours()+":"+dateObj.getMinutes();
+		
 	}
 	
 }

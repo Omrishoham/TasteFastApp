@@ -4,6 +4,7 @@ import java.awt.Event;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
@@ -27,6 +28,7 @@ public class AppView implements PropertyChangeListener {
 	private AddEmployeePanel addEmployeePanel;
 	private RemoveEmployeePanel removeEmployeePanel;
 	private UpdateToManagerPanel updateToManagerPanel;
+	private UpdateSalaryPanel updateSalaryPanel;
 
 	public AppView() {
 		setPropertyChangeSupport();
@@ -42,7 +44,8 @@ public class AppView implements PropertyChangeListener {
 		managerPanel = new ManagerPanel();
 		addEmployeePanel = new AddEmployeePanel();
 		removeEmployeePanel = new RemoveEmployeePanel();
-		updateToManagerPanel = new  UpdateToManagerPanel();
+		updateToManagerPanel = new UpdateToManagerPanel();
+		updateSalaryPanel = new UpdateSalaryPanel();
 
 		orderPanel.addPropertyChangeListener(this);
 		introPanel.addPropertyChangeListener(this);
@@ -56,6 +59,7 @@ public class AppView implements PropertyChangeListener {
 		addEmployeePanel.addPropertyChangeListener(this);
 		removeEmployeePanel.addPropertyChangeListener(this);
 		updateToManagerPanel.addPropertyChangeListener(this);
+		updateSalaryPanel.addPropertyChangeListener(this);
 
 	}
 
@@ -98,6 +102,10 @@ public class AppView implements PropertyChangeListener {
 		else if (event.getPropertyName().equals("UpdateToManagerPanel")) {
 			changeWindows("UpdateToManagerPanel", event.getNewValue());
 		}
+		else if (event.getPropertyName().equals("UpdateSalaryPanel")) {
+			changeWindows("UpdateSalaryPanel", event.getNewValue());
+		}
+
 
 		else {
 			// send the property change to the controller
@@ -155,8 +163,39 @@ public class AppView implements PropertyChangeListener {
 		case "UpdateToManagerPanel":
 			updateToManagerPanel.panelActivity((Manager)obj);
 			break;
+		case "UpdateSalaryPanel":
+			updateSalaryPanel.panelActivity((Manager)obj);
+			break;
 		}
 	}
+	
+	public void printOrders(ArrayList<Order> orders) {
+			if (orders.isEmpty())
+			System.out.println("There are no orders at this time");
+			else {
+			for (Order order : orders) {
+			order.printOrder();
+			System.out.println("\n\n");
+			}
+			}
+		
+	}
+	
+	public void printOnShiftEmployees(ArrayList<Employee> onShiftEmpolyees) {
+		int i=1;
+		for (Employee employee : onShiftEmpolyees) {
+
+		System.out.println("The shift employees are:\n"+i+"."+employee.getFirstName()+" "+employee.getLastName());
+		System.out.println("\n\n");
+		}
+		
+	
+}
+	
+	public void printSalaryCount(double salaryCount) {
+		System.out.println("Your salary since you working in the resturant is: "+ salaryCount+ "\n");
+	}
+
 
 	public void Msg(String alert) {
 		System.out.println(alert);

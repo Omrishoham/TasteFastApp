@@ -64,15 +64,15 @@ public class AppController implements PropertyChangeListener {
 				if(model.ifEmployeeManager(((Employee)event.getNewValue()).getUsername(),((Employee) event.getNewValue()).getPassword()))
 				{		
 					      Employee employee = model.placeValues(((Employee) event.getNewValue()).getUsername(), ((Employee) event.getNewValue()).getPassword());
-					      Manager manager = new Manager(employee.getUsername(),employee.getPassword(),employee.getSalaryPerHour());
-					      model.setEmployeeOnShift(manager);
+					      Manager manager = new Manager(employee.getUsername(),employee.getPassword(),employee.getSalaryPerHour(),employee.getSalarySum(),employee.getFirstName(),employee.getLastName());
+					      model.getOnShiftEmployees().add(manager);
 					      view.changeWindows("ManagerPanel",(Object)manager);
 				}		
 				else 
 				{
-				Employee employee = model.placeValues(((Employee) event.getNewValue()).getUsername(), ((Employee) event.getNewValue()).getPassword());
-			    Waiter waiter = new Waiter(employee.getUsername(),employee.getPassword(),employee.getSalaryPerHour());
-			    model.setEmployeeOnShift(waiter);
+				Employee employee1 = model.placeValues(((Employee) event.getNewValue()).getUsername(), ((Employee) event.getNewValue()).getPassword());
+			    Waiter waiter = new Waiter(employee1.getUsername(),employee1.getPassword(),employee1.getSalaryPerHour(),employee1.getSalarySum(),employee1.getFirstName(),employee1.getLastName());
+			    model.getOnShiftEmployees().add(waiter);
 			    view.changeWindows("WaiterPanel",(Object)waiter);
 				}
 			}
@@ -83,7 +83,8 @@ public class AppController implements PropertyChangeListener {
 			}
 		}
 		else if(event.getPropertyName().equals("PrintOrdersEvent")) {
-			model.printOrders();
+			
+			view.printOrders(model.getOrdersDB());
 			view.changeWindows("ManagerPanel", event.getNewValue());
 		}
 		else if(event.getPropertyName().equals("AddEmployeeEvent")) {
@@ -115,12 +116,43 @@ public class AppController implements PropertyChangeListener {
 				view.changeWindows("ManagerPanel", event.getOldValue());
 			} else {
 				view.Msg("waiter is not found");
-				view.changeWindows("UpdateToManager", event.getOldValue());
+				view.changeWindows("UpdateToManagerPanel", event.getOldValue());
 					
 				}
 			
 			}
-	}
+		else if(event.getPropertyName().equals("UpdateSalaryEvent")) {
+			if(model.ifEmployeeExist(((Employee) event.getNewValue()).getUsername())) {
+				model.updateSalary((((Employee) event.getNewValue()).getUsername()),(((Employee) event.getNewValue()).getSalaryPerHour()));
+				view.Msg("employee's salary updated successfuly");
+				view.changeWindows("ManagerPanel", event.getOldValue());
+			}
+			 else {
+					view.Msg("employee is not found");
+					view.changeWindows("UpdateSalaryPanel", event.getOldValue());
+						
+					}
+			}
+		else if(event.getPropertyName().equals("LogoutEmployeeEvent")) {
+			model.updateTotalSalary(((Employee) event.getNewValue()).getUsername(),((Employee) event.getNewValue()).calcWorkTime());
+			model.getOnShiftEmployees().remove((Employee)event.getNewValue());
+			view.Msg("logged out succefuly\n");
+			view.changeWindows("IntroPanel", 1);
+		}
+		
+		else if(event.getPropertyName().equals("PrintSalaryEvent")) {
+			double salaryCount = model.getSalaryCount(((Employee) event.getNewValue()).getUsername());
+			view.printSalaryCount(salaryCount);
+			view.changeWindows("WaiterPanel", event.getNewValue());
+		}
+		
+		else if(event.getPropertyName().equals("SeeOnShiftEvent")) {
+			view.printOnShiftEmployees(model.getOnShiftEmployees());
+			view.changeWindows("ManagerPanel", event.getNewValue());
+		}
+		
+		}
+		
 
 	public static void main(String[] args) {
 	AppModel model = new AppModel();		

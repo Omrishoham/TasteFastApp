@@ -17,8 +17,8 @@ public class ClientPanel {
 	
 	public void panelActivity(Client client) {
 		
-		System.out.println("Hi "+client.getUsername()+"!");
-		System.out.println("1.Make an order");
+		System.out.println("Hi Client "+client.getUsername()+"!");
+		System.out.println("1.Make an order\n2.Logout");
 		Scanner input = new Scanner(System.in);
 		int numPress = input.nextInt();
 		
@@ -26,6 +26,8 @@ public class ClientPanel {
 		case 1:
 			propertyChangeHandler.firePropertyChange("OrderPanel",0,client); //goes to resturant menu
 			break;
+		case 2:
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
 
 		default:
 			break;

@@ -4,11 +4,10 @@ import java.util.Date;
 
 public class Manager extends Employee {
 
-	public Manager(String username, String password,double salaryPerHour)
+	public Manager(String username, String password,double salaryPerHour,double salarySum,String firstName,String lastName)
 	{
-		super(username, password,salaryPerHour);
-		this.login_time=new Date();
-		this.isManager = true;
+		super(username, password,true,salaryPerHour,salarySum,firstName,lastName);
+		this.dateObj=new Date();
 	}
 	public Manager(){
 		

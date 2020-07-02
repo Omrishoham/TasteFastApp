@@ -57,7 +57,7 @@ public class CheckoutPanel {
 			}
 			order.setValidityCreditCard(validity);
 			System.out.println("Thanks, Your Order received successfuly!");
-			order.setOrderDate();
+			order.setDateAndTime();
 
 			// taking care of insert order to orders database
 			propertyChangeHandler.firePropertyChange("InsertNewOrderEvent", 0, order);
@@ -72,7 +72,7 @@ public class CheckoutPanel {
 	       int high = 30;
 	       int result = rand.nextInt(high-low) + low;
 		System.out.println("In "+result+" Minutes You Will Get Your Order");
-		System.out.println("Enter 1 To Logout");
+		System.out.println("Press 1 to client menu");
 		Scanner input3 = new Scanner(System.in);
 		numPress = input3.nextInt();
 		switch(numPress) {
