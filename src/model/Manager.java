@@ -8,6 +8,7 @@ public class Manager extends Employee {
 	{
 		super(username, password,true,salaryPerHour,salarySum,firstName,lastName);
 		this.dateObj=new Date();
+		this.isManager = true;
 	}
 	public Manager(){
 		

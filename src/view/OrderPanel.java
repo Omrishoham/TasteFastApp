@@ -49,22 +49,24 @@ public class OrderPanel
 		ArrayList<ItemsInMenu> shoppingCart=new ArrayList<>(order.getShoppingCart());
 		double totalPrice=order.getTotalPrice();
 		Scanner input = new Scanner(System.in);
-		System.out.println("Instructions:\n"
+		
+		//items
+				System.out.println("Menu:\n");
+				
+				//print menu
+				int i = 0;
+				while(i< menu.size()) {
+					System.out.print( (i+1) + ". ");
+					menu.get(i).printItem();
+					i++;
+				}
+		
+		System.out.println("\nInstructions:\n"
 				+ "Write \"add\" and the number of the item from menu to add it to cart\n"
 				+ "Write \"remove\" and the number of the item from menu to remove from cart\n"
 				+ "Example: \"add 2\" or \"remove 5\"\n"
 				+ "Enter 0 to accept order and procceed\n");
 		
-		//items
-		System.out.println("Menu:\n");
-		
-		//print menu
-		int i = 0;
-		while(i< menu.size()) {
-			System.out.print( (i+1) + ". ");
-			menu.get(i).printItem();
-			i++;
-		}
 		
 		//if cart is already been changed
 		if(!shoppingCart.isEmpty()) {
