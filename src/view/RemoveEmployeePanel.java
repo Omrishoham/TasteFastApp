@@ -15,8 +15,11 @@ public class RemoveEmployeePanel {
 	}
 
 	public void panelActivity(Manager manager) {
-
+		
 		Scanner input = new Scanner(System.in);
+		propertyChangeHandler.firePropertyChange("PrintEmployeesEvent", 0, 1);
+		
+		
 		System.out.println("Enter employee's username you wanna remove: ");
 		String username = input.nextLine();
 		while (username.equals("")) {

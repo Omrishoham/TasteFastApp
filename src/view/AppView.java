@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 import model.Client;
@@ -98,14 +99,11 @@ public class AppView implements PropertyChangeListener {
 			changeWindows("AddEmployeePanel", event.getNewValue());
 		} else if (event.getPropertyName().equals("RemoveEmployeePanel")) {
 			changeWindows("RemoveEmployeePanel", event.getNewValue());
-		}
-		else if (event.getPropertyName().equals("UpdateToManagerPanel")) {
+		} else if (event.getPropertyName().equals("UpdateToManagerPanel")) {
 			changeWindows("UpdateToManagerPanel", event.getNewValue());
-		}
-		else if (event.getPropertyName().equals("UpdateSalaryPanel")) {
+		} else if (event.getPropertyName().equals("UpdateSalaryPanel")) {
 			changeWindows("UpdateSalaryPanel", event.getNewValue());
 		}
-
 
 		else {
 			// send the property change to the controller
@@ -155,50 +153,67 @@ public class AppView implements PropertyChangeListener {
 			employeeLoginPanel.panelActivity();
 			break;
 		case "AddEmployeePanel":
-			addEmployeePanel.panelActivity((Manager)obj);
+			addEmployeePanel.panelActivity((Manager) obj);
 			break;
 		case "RemoveEmployeePanel":
-			removeEmployeePanel.panelActivity((Manager)obj);
+			removeEmployeePanel.panelActivity((Manager) obj);
 			break;
 		case "UpdateToManagerPanel":
-			updateToManagerPanel.panelActivity((Manager)obj);
+			updateToManagerPanel.panelActivity((Manager) obj);
 			break;
 		case "UpdateSalaryPanel":
-			updateSalaryPanel.panelActivity((Manager)obj);
+			updateSalaryPanel.panelActivity((Manager) obj);
 			break;
 		}
 	}
-	
+
 	public void printOrders(ArrayList<Order> orders) {
-			if (orders.isEmpty())
+		if (orders.isEmpty())
 			System.out.println("There are no orders at this time");
-			else {
+		else {
 			for (Order order : orders) {
-			order.printOrder();
-			System.out.println("\n\n");
+				order.printOrder();
+				System.out.println("\n\n");
 			}
-			}
-		
+		}
+
 	}
-	
+
+//delete
 	public void printOnShiftEmployees(ArrayList<Employee> onShiftEmpolyees) {
-		int i=1;
+		int i = 1;
 		for (Employee employee : onShiftEmpolyees) {
 
-		System.out.println("The shift employees are:\n"+i+"."+employee.getFirstName()+" "+employee.getLastName());
-		System.out.println("\n\n");
+			System.out.println(
+					"The shift employees are:\n" + i + "." + employee.getFirstName() + " " + employee.getLastName());
+			System.out.println("\n\n");
 		}
-		
-	
-}
-	
-	public void printSalaryCount(double salaryCount) {
-		System.out.println("Your salary since you working in the resturant is: "+ salaryCount+ "\n");
+
 	}
 
+	// print employees from database
+	public void printAllEmployees(ArrayList<Employee> employees) {
+		int i = 1;
+		System.out.println("Employees of the resturant:");
+		for (Employee employee : employees) {
+			String managerOrWaiter = employee.getIsManager() ? "(Manager)" : "(Waiter)";
+			System.out.println(
+					i + "." + employee.getUsername() + " - " 
+							+ employee.getFirstName() + " " 
+							+ employee.getLastName() + " "
+							+ managerOrWaiter);
+			i++;
+		}
+		System.out.println("\n");
+
+	}
+
+	public void printSalaryCount(double salaryCount) {
+		System.out.println("Your salary since you working in the resturant is: " + salaryCount + "\n");
+	}
 
 	public void Msg(String alert) {
-		System.out.println(alert);
+		System.out.println(alert + "\n");
 	}
 
 }

@@ -1,24 +1,14 @@
 package view;
 
-import java.awt.List;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Scanner;
-import model.Product;
+
+import model.menu.MyMenu;
 import model.ItemsInMenu;
 import model.Order;
-import model.CheeseCake;
-import model.ChocolateMousse;
 import model.Client;
-import model.PastaAlfredo;
-import model.PastaBolognese;
-//import model.Product;
-import model.RegularPizza;
-import model.VeganPizza;
 
 public class OrderPanel 
 {
@@ -28,24 +18,20 @@ public class OrderPanel
 	public OrderPanel()
 	{
 		setPropertyChangeSupport();
-		this.menu = new ArrayList<ItemsInMenu>();
-		menu.add(RegularPizza.getInstance());
-		menu.add(VeganPizza.getInstance());
-		menu.add(PastaBolognese.getInstance());
-		menu.add(PastaAlfredo.getInstance());
-		menu.add(ChocolateMousse.getInstance());
-		menu.add(CheeseCake.getInstance());	
 	}
 	
 	public void panelActivity(Client client)
 	{
+		this.menu = MyMenu.getInstance();
+		//menu.clear();
+		
 		this.newOrder = new Order(client.getUsername());
 		
 		makeOrder(this.newOrder);
 	}
 	public void makeOrder(Order order)
 	{
-		//setting temp shppingcart and totalprice
+		//setting temp shopping cart and total price
 		ArrayList<ItemsInMenu> shoppingCart=new ArrayList<>(order.getShoppingCart());
 		double totalPrice=order.getTotalPrice();
 		Scanner input = new Scanner(System.in);
@@ -74,7 +60,7 @@ public class OrderPanel
 			for(ItemsInMenu itemsInMenu : shoppingCart) {
 				itemsInMenu.printItem();
 			}
-			System.out.println("Total price: " +totalPrice);
+			System.out.println("Total price: " +totalPrice + " ILS");
 		}
 		
 		String removeOrAddInput = input.nextLine();
@@ -94,7 +80,7 @@ public class OrderPanel
 				j = 0;
 				
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}
@@ -113,7 +99,7 @@ public class OrderPanel
 			case "remove 2":
 				j = 1;
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}
@@ -132,7 +118,7 @@ public class OrderPanel
 			case "remove 3":
 				j = 2;
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}
@@ -151,7 +137,7 @@ public class OrderPanel
 			case "remove 4":
 				j = 3;
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}
@@ -170,7 +156,7 @@ public class OrderPanel
 			case "remove 5":
 				j = 4;
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}
@@ -189,7 +175,7 @@ public class OrderPanel
 			case "remove 6":
 				j = 5;
 				if(shoppingCart.contains(menu.get(j))) {
-					shoppingCart.remove(j);
+					shoppingCart.remove(menu.get(j));
 					System.out.println(menu.get(j).getProductName()+" was removed from cart");
 					totalPrice-=menu.get(j).getPrice();
 				}

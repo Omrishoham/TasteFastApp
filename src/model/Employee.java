@@ -27,6 +27,15 @@ public class Employee implements User {
 		this.lastName = lastName;
 		this.isManager = isManager;
 	}
+	
+	//to pull from database all employees
+	public Employee(String username,String firstName,String lastName,boolean isManager) {
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName= lastName;
+		this.isManager = isManager;
+		
+	}
 
 	
 	

@@ -4,6 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import model.DB.ClientsDB;
+import model.DB.EmployeesDB;
+import model.DB.OrdersDB;
+
 public class AppModel {
 	private PropertyChangeSupport propertyChangeHandler;
 	private ClientsDB clientsDB;
@@ -92,6 +96,10 @@ public class AppModel {
 	
 	public ArrayList<Employee> getOnShiftEmployees(){
 		return this.onShiftEmpolyees;
+	}
+	
+	public ArrayList<Employee> getAllEmployees(){
+		return employeesDB.getAllEmployees();
 	}
 
 	public void setPropertyChangeSupport() {

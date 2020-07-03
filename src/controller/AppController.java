@@ -151,6 +151,10 @@ public class AppController implements PropertyChangeListener {
 			view.changeWindows("ManagerPanel", event.getNewValue());
 		}
 		
+		else if(event.getPropertyName().equals("PrintEmployeesEvent")) {
+			view.printAllEmployees(model.getAllEmployees());
+		}
+		
 		}
 		
 

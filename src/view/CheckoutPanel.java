@@ -42,7 +42,7 @@ public class CheckoutPanel {
 			System.out.println("Enter Credit Card Number: ");
 			String creditCard = input2.nextLine();
 
-			while (creditCard.equals("")) {
+			while (creditCard.equals("") || creditCard.length()<16 || creditCard.matches(".*[a-z].*")) {
 				System.out.println("error! enter again credit card number:");
 				creditCard = input2.nextLine();
 			}
@@ -51,7 +51,7 @@ public class CheckoutPanel {
 			System.out.println("Enter validity Credit Card(like \"05/21\"): ");
 			String validity = input2.nextLine();
 
-			while (validity.equals("")) {
+			while (validity.equals("") || validity.length()!=5 || validity.charAt(2) != '/') {
 				System.out.println("error! enter again validity credit card:");
 				validity = input2.nextLine();
 			}
