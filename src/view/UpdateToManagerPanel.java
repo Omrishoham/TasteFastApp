@@ -17,11 +17,15 @@ public class UpdateToManagerPanel {
 	
 	public void panelActivity(Manager manager)
 	{
-		propertyChangeHandler.firePropertyChange("PrintEmployeesEvent", 0, 1);
-		
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the username's waiter you wanna make to manager: ");
+		propertyChangeHandler.firePropertyChange("PrintEmployeesEvent", 0, 1);
+		System.out.println("Enter the username's waiter you wanna make to manager or press 0 to go back: ");
 		String username = input.nextLine();
+		if(username.equals("0"))
+		{
+			propertyChangeHandler.firePropertyChange("ManagerPanel",0, manager);
+		}
+		else {
 		while(username.equals(""))
 		{
 			System.out.println("error! enter again username:");
@@ -34,8 +38,7 @@ public class UpdateToManagerPanel {
 		employee.setSalaryPerHour(salaryperhour);
 		propertyChangeHandler.firePropertyChange("UpdateToManagerEvent", manager, employee);
 		
-		
-		
+	}
 	}
 	
 	

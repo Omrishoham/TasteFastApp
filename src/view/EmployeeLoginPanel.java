@@ -23,8 +23,12 @@ public class EmployeeLoginPanel {
 		employee = new Employee();
 		System.out.println("Login:");
 		
-		System.out.println("username: ");
+		System.out.println("Enter username or press 0 to go back: ");
 		String username = input.nextLine();
+		if(username.equals("0")) {
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+		}
+		else {
 		while(username.equals(""))
 		{
 			System.out.println("error! enter again username:");
@@ -42,6 +46,7 @@ public class EmployeeLoginPanel {
 		this.employee.setPassword(password);
 		
 		propertyChangeHandler.firePropertyChange("EmployeeLoginEvent", 0,this.employee);
+	}
 	}
 	
 	public void setPropertyChangeSupport() 

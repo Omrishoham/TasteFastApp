@@ -16,8 +16,13 @@ public class AddEmployeePanel {
 	public void panelActivity(Manager manager) {
 		
 		Scanner input = new Scanner(System.in);
-			System.out.println("Enter employee's username: ");
+			System.out.println("Enter employee's username or press 0 to go back: ");
 			String username = input.nextLine();
+			if(username.equals("0"))
+			{
+				propertyChangeHandler.firePropertyChange("ManagerPanel",0, manager);
+			}
+			else {
 			while(username.equals(""))
 			{
 				System.out.println("error! enter again username:");
@@ -56,6 +61,7 @@ public class AddEmployeePanel {
 			
 			propertyChangeHandler.firePropertyChange("AddEmployeeEvent", manager, newEmployee);
 		
+	}
 	}
 	
 	

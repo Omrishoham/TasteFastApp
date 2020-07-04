@@ -20,8 +20,13 @@ public class UpdateSalaryPanel {
 		propertyChangeHandler.firePropertyChange("PrintEmployeesEvent", 0, 1);
 		
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the username's employee you wanna update his salary: ");
+		System.out.println("Enter the username's employee you wanna update his salary or press 0 to go back: ");
 		String username = input.nextLine();
+		if(username.equals("0"))
+		{
+			propertyChangeHandler.firePropertyChange("ManagerPanel",0, manager);
+		}
+		else {
 		while(username.equals(""))
 		{
 			System.out.println("error! enter again username:");
@@ -33,6 +38,7 @@ public class UpdateSalaryPanel {
 		employee.setUsername(username);
 		employee.setSalaryPerHour(salaryperhour);
 		propertyChangeHandler.firePropertyChange("UpdateSalaryEvent", manager, employee);
+	}
 	}
 
 	

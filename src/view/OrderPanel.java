@@ -22,12 +22,19 @@ public class OrderPanel
 	
 	public void panelActivity(Client client)
 	{
+		Scanner input1 = new Scanner(System.in);
+		System.out.println("1.Continue to make order/n0.Back");
+		int numPress1 = input1.nextInt();
+		switch (numPress1){
+		case 0:
+			propertyChangeHandler.firePropertyChange("ClientPanel", 0, client);
+			break;
+		case 1:
 		this.menu = MyMenu.getInstance();
 		//menu.clear();
-		
 		this.newOrder = new Order(client.getUsername());
-		
 		makeOrder(this.newOrder);
+		}
 	}
 	public void makeOrder(Order order)
 	{

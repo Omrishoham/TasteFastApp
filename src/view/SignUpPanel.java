@@ -24,8 +24,12 @@ public class SignUpPanel
 	public void panelActivity()
 	{
 		Scanner input = new Scanner(System.in);
-		System.out.println("enter first name:");
+		System.out.println("enter first name or press 0 to go back :");
 		String firstName = input.nextLine();
+		if(firstName.equals("0")) {
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+		}
+		else {
 		while(firstName.equals(""))
 		{
 			System.out.println("enter valid first name:");
@@ -81,6 +85,7 @@ public class SignUpPanel
 		{
 			propertyChangeHandler.firePropertyChange("ClientLoginPanel", 0, 1);
 		}
+	}
 	}
 	public void setPropertyChangeSupport() {
 		propertyChangeHandler = new PropertyChangeSupport(this);

@@ -22,9 +22,12 @@ public class ClientLoginPanel
 		Scanner input = new Scanner(System.in);
 		client = new Client();
 		System.out.println("Login:");
-		
-		System.out.println("username: ");
+		System.out.println("Enter username or press 0 to go back: ");
 		String username = input.nextLine();
+		if(username.equals("0")) {
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+		}
+		else {
 		while(username=="")
 		{
 			System.out.println("error! enter again username:");
@@ -43,6 +46,7 @@ public class ClientLoginPanel
 		
 		//controller checks if client in DB
 		propertyChangeHandler.firePropertyChange("ClientLoginEvent",0,this.client);
+	}
 	}
 
 	

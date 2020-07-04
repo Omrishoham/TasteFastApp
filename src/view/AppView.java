@@ -82,10 +82,16 @@ public class AppView implements PropertyChangeListener {
 		} else if (event.getPropertyName().equals("ClientLoginPanel")) {
 			changeWindows("ClientLoginPanel", null);
 
+		} else if (event.getPropertyName().equals("ClientPanel")) {
+			changeWindows("ClientPanel", event.getNewValue());
+
 		} else if (event.getPropertyName().equals("EmployeeLogin")) {
 			changeWindows("EmployeeLogin", null);
 		} else if (event.getPropertyName().equals("EmployeeLoginPanel")) {
 			changeWindows("EmployeeLoginPanel", null);
+
+		} else if (event.getPropertyName().equals("ManagerPanel")) {
+			changeWindows("ManagerPanel", event.getNewValue());
 
 		} else if (event.getPropertyName().equals("SignUpPanel")) {
 			changeWindows("SignUpPanel", null);
@@ -197,11 +203,8 @@ public class AppView implements PropertyChangeListener {
 		System.out.println("Employees of the resturant:");
 		for (Employee employee : employees) {
 			String managerOrWaiter = employee.getIsManager() ? "(Manager)" : "(Waiter)";
-			System.out.println(
-					i + "." + employee.getUsername() + " - " 
-							+ employee.getFirstName() + " " 
-							+ employee.getLastName() + " "
-							+ managerOrWaiter);
+			System.out.println(i + "." + employee.getUsername() + " - " + employee.getFirstName() + " "
+					+ employee.getLastName() + " " + managerOrWaiter);
 			i++;
 		}
 		System.out.println("\n");
