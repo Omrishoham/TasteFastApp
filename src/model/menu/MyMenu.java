@@ -2,7 +2,7 @@ package model.menu;
 
 import java.util.ArrayList;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 import model.menu.BeefWelington;
 import model.menu.Risoto;
 import model.menu.CheeseCake;
@@ -12,12 +12,12 @@ import model.menu.Pizza;
 
 
 public class MyMenu {
-	private static ArrayList<ItemsInMenu> instance = null;
+	private static ArrayList<ItemInMenu> instance = null;
 
 	private MyMenu() {}
 
 	//single menu list
-	public static ArrayList<ItemsInMenu> getInstance()
+	public static ArrayList<ItemInMenu> getInstance()
 	{
 		if (instance == null) {
 			createMenuList();
@@ -26,7 +26,7 @@ public class MyMenu {
 	}
 	
 	private static void createMenuList() {
-		instance = new ArrayList<ItemsInMenu>();
+		instance = new ArrayList<ItemInMenu>();
 		instance.add(Salad.getInstance());
 		instance.add(Pizza.getInstance());
 		instance.add(Risoto.getInstance());

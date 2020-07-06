@@ -9,7 +9,7 @@ import java.util.Date;
 public class Order
 {
 	private String whoOrdered;
-	private ArrayList<ItemsInMenu> shoppingCart;
+	private ArrayList<ItemInMenu> shoppingCart;
 	private double totalPrice;
 	private String orderID;
 	private String creditCardNumber;
@@ -47,7 +47,7 @@ public class Order
 							+"\nOrdered by: " +this.whoOrdered);
 							
 	}
-	public void setShoppingCart(ArrayList<ItemsInMenu> shoppingCart)
+	public void setShoppingCart(ArrayList<ItemInMenu> shoppingCart)
 	{
 		this.shoppingCart = shoppingCart;
 	}
@@ -67,7 +67,7 @@ public class Order
 		this.whoOrdered = whoOrdered;
 	}
 	
-	public ArrayList<ItemsInMenu> getShoppingCart()
+	public ArrayList<ItemInMenu> getShoppingCart()
 	{
 		return this.shoppingCart;
 	}

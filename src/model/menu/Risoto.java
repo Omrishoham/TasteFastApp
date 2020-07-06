@@ -1,14 +1,14 @@
 package model.menu;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 
-public class Risoto extends ItemsInMenu
+public class Risoto extends ItemInMenu
 {
 	private static Risoto instance=null;
 	
 	private Risoto() 
 	{
-		super("Risoto",40, " Cheesy Risoto with white wine reduction", 4);
+		super("Risoto",40);
 	}
 	
 	public static Risoto getInstance()//use singleton design pattern

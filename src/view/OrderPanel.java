@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.menu.MyMenu;
-import model.ItemsInMenu;
+import model.ItemInMenu;
 import model.Order;
 import model.Client;
 
@@ -14,7 +14,7 @@ public class OrderPanel
 {
 	private PropertyChangeSupport propertyChangeHandler;
 	private Order newOrder;
-	private ArrayList<ItemsInMenu> menu;
+	private ArrayList<ItemInMenu> menu;
 	public OrderPanel()
 	{
 		setPropertyChangeSupport();
@@ -39,7 +39,7 @@ public class OrderPanel
 	public void makeOrder(Order order)
 	{
 		//setting temp shopping cart and total price
-		ArrayList<ItemsInMenu> shoppingCart=new ArrayList<>(order.getShoppingCart());
+		ArrayList<ItemInMenu> shoppingCart=new ArrayList<>(order.getShoppingCart());
 		double totalPrice=order.getTotalPrice();
 		Scanner input = new Scanner(System.in);
 		
@@ -64,7 +64,7 @@ public class OrderPanel
 		//if cart is already been changed
 		if(!shoppingCart.isEmpty()) {
 			System.out.println("Cart:");
-			for(ItemsInMenu itemsInMenu : shoppingCart) {
+			for(ItemInMenu itemsInMenu : shoppingCart) {
 				itemsInMenu.printItem();
 			}
 			System.out.println("Total price: " +totalPrice + " ILS");
@@ -202,7 +202,7 @@ public class OrderPanel
 		
 		//print order details
 		System.out.println("Cart:");
-		for(ItemsInMenu itemsInMenu : shoppingCart) {
+		for(ItemInMenu itemsInMenu : shoppingCart) {
 			itemsInMenu.printItem();
 		}
 		System.out.println("Total price: " +totalPrice);

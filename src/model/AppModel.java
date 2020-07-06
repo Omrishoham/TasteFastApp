@@ -13,14 +13,12 @@ public class AppModel {
 	private ClientsDB clientsDB;
 	private OrdersDB ordersDB;
 	private EmployeesDB employeesDB;
-	private ArrayList<Employee> onShiftEmpolyees;
 
 	public AppModel() {
 		setPropertyChangeSupport();
 		clientsDB = ClientsDB.getInstance();
 		ordersDB = OrdersDB.getInstance();
 		employeesDB = EmployeesDB.getInstance();
-		onShiftEmpolyees = new ArrayList<Employee>();
 
 	}
 	//update waiter to manager and new salary for him
@@ -92,10 +90,6 @@ public class AppModel {
 	
 	public ArrayList<Order> getOrdersDB(){
 		return ordersDB.getOrdersDB();
-	}
-	
-	public ArrayList<Employee> getOnShiftEmployees(){
-		return this.onShiftEmpolyees;
 	}
 	
 	public ArrayList<Employee> getAllEmployees(){

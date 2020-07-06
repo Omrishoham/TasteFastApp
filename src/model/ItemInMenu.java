@@ -1,17 +1,13 @@
 package model;
 
-public abstract class ItemsInMenu implements Product {
+public abstract class ItemInMenu implements Product {
 	protected String itemName;
 	protected double price;
-	protected String description;
-	protected int serialNumber;
 	
-	public ItemsInMenu(String itemName,double price,String description,int serialNumber) 
+	public ItemInMenu(String itemName,double price) 
 	{
 		this.itemName=itemName;
 		this.price=price;
-		this.description=description;
-		this.serialNumber = serialNumber;
 	}
 	
 	public String getProductName()
@@ -21,14 +17,6 @@ public abstract class ItemsInMenu implements Product {
 	public double getPrice()
 	{
 		return this.price;
-	}
-	public String getDescription()
-	{
-		return this.description;
-	}
-	public int getSerialNumber()
-	{
-		return this.serialNumber;
 	}
 	
 	public void printItem() {

@@ -1,14 +1,14 @@
 package model.menu;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 
-public class BeefWelington extends ItemsInMenu
+public class BeefWelington extends ItemInMenu
 {
 	private static BeefWelington instance=null;
 	
 	private BeefWelington() 
 	{
-		super("Beef Welington",75, " Gordon Ramsay's Special!", 3);
+		super("Beef Welington",75);
 	}
 	
 	public static BeefWelington getInstance()//use singleton design pattern

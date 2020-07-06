@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import javax.imageio.stream.ImageInputStream;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 import model.Order;
 
 public class CheckoutPanel {
@@ -25,7 +25,7 @@ public class CheckoutPanel {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Order ID: " + order.getOrderID());
 		System.out.println("Cart:");
-		for (ItemsInMenu itemsInMenu : order.getShoppingCart()) {
+		for (ItemInMenu itemsInMenu : order.getShoppingCart()) {
 			itemsInMenu.printItem();
 		}
 		System.out.println("Total price: " + order.getTotalPrice());
@@ -78,6 +78,7 @@ public class CheckoutPanel {
 		switch(numPress) {
 		case 1:
 			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+			break;
 		}
 		
 		

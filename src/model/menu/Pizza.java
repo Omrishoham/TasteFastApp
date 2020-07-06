@@ -1,15 +1,15 @@
 package model.menu;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 
-public class Pizza extends ItemsInMenu {
+public class Pizza extends ItemInMenu {
 	
 		
 		private static Pizza instance=null;
 		
 		private Pizza() 
 		{
-			super("Pizza",30, " pizza with mozzarella cheese", 1);
+			super("Pizza",30);
 		}
 		
 		public static Pizza getInstance()//use singleton design pattern

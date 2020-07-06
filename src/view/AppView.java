@@ -185,18 +185,6 @@ public class AppView implements PropertyChangeListener {
 
 	}
 
-//delete
-	public void printOnShiftEmployees(ArrayList<Employee> onShiftEmpolyees) {
-		int i = 1;
-		for (Employee employee : onShiftEmpolyees) {
-
-			System.out.println(
-					"The shift employees are:\n" + i + "." + employee.getFirstName() + " " + employee.getLastName());
-			System.out.println("\n\n");
-		}
-
-	}
-
 	// print employees from database
 	public void printAllEmployees(ArrayList<Employee> employees) {
 		int i = 1;

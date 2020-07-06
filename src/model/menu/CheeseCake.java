@@ -1,13 +1,13 @@
 package model.menu;
 
-import model.ItemsInMenu;
+import model.ItemInMenu;
 
-public class CheeseCake extends ItemsInMenu {
+public class CheeseCake extends ItemInMenu {
 	private static CheeseCake instance=null;
 	
 	private CheeseCake() 
 	{
-		super("Cheese Cake",20, " Cheese Cake", 6);
+		super("Cheese Cake",20);
 	}
 	
 	public static CheeseCake getInstance()//use singleton design pattern
