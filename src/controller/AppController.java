@@ -47,7 +47,7 @@ public class AppController implements PropertyChangeListener {
 				view.changeWindows("ClientLoginPanel", null); // login again if wrong user
 			}
 		} else if (event.getPropertyName().equals("InsertNewOrderEvent")) {
-			model.inserNewOrder(((Order) event.getNewValue()));
+			model.insertNewOrder(((Order) event.getNewValue()));
 		}
 		// check if employee exist in database ,after that check if its a manager or
 		// employee
@@ -115,7 +115,7 @@ public class AppController implements PropertyChangeListener {
 
 		} else if (event.getPropertyName().equals("UpdateSalaryEvent")) {
 			if (model.ifEmployeeExist(((Employee) event.getNewValue()).getUsername())) {
-				model.updateSalary((((Employee) event.getNewValue()).getUsername()),
+				model.updateSalaryPerHour((((Employee) event.getNewValue()).getUsername()),
 						(((Employee) event.getNewValue()).getSalaryPerHour()));
 				view.Msg("employee's salary updated successfuly");
 				view.changeWindows("ManagerPanel", event.getOldValue());
@@ -125,7 +125,7 @@ public class AppController implements PropertyChangeListener {
 
 			}
 		} else if (event.getPropertyName().equals("LogoutEmployeeEvent")) {
-			model.updateTotalSalary(((Employee) event.getNewValue()).getUsername(),
+			model.updateSalarySum(((Employee) event.getNewValue()).getUsername(),
 					((Employee) event.getNewValue()).calcWorkTime());
 			view.Msg("logged out succefuly\n");
 			view.changeWindows("IntroPanel", 1);

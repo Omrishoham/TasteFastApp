@@ -26,7 +26,7 @@ public class OrdersDB extends Database
 		return instance;
 	}
 	
-	public void insertOrder(String username,String orderID,double totalPrice,String creditCardNum,String creditCardVal,String orderTime, String orderDate)
+	public boolean insertOrder(String username,String orderID,double totalPrice,String creditCardNum,String creditCardVal,String orderTime, String orderDate)
 	{
 		Connection connect = connectToDB();
         try
@@ -40,15 +40,19 @@ public class OrdersDB extends Database
             pstmt.setString(6,orderDate);
             pstmt.setString(7,orderTime);
             pstmt.executeUpdate();
-        	
         }
           catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false;
           }
+        
+        return true;
 	}
+	
+	
 	//pulling all orders from database
 	public ArrayList<Order> getOrdersDB(){
-		String sql = "SELECT username,totalprice,orderid,ordertime,orderdate FROM orders";
+		String sql = "SELECT username,totalprice,orderid,ordertime,orderdate,creditcardnum,creditcardval FROM orders";
 		ArrayList<Order> ordersDB = new ArrayList<Order>();
 
 		try (Connection connect = this.connectToDB();
@@ -61,7 +65,9 @@ public class OrdersDB extends Database
 				String orderid = resultSet.getString("orderid");
 				String ordertime = resultSet.getString("ordertime");
 				String orderdate = resultSet.getString("orderdate");
-				Order order = new Order(username,totalprice,orderid,ordertime,orderdate);
+				String creditcardnum= resultSet.getString("creditcardnum");
+				String creditcardval = resultSet.getString("creditcardval");
+				Order order = new Order(username,totalprice,orderid,ordertime,orderdate,creditcardnum,creditcardval);
 				ordersDB.add(order);
 			}
 		} catch (SQLException e) {

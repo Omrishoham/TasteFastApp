@@ -21,51 +21,7 @@ public class AppModel {
 		employeesDB = EmployeesDB.getInstance();
 
 	}
-	//update waiter to manager and new salary for him
-	public void updateToManager(String username,double newsalarypaerhour) {
-		employeesDB.updateToManager(username,newsalarypaerhour);
-		
-	}
 
-//put new client info in Database
-	public void signUpClient(Client client) {
-		clientsDB.insertInfo(client.getUsername(), client.getPassword(), client.getEmail(), client.getFirstName(),
-				client.getLastName());
-	}
-	//put new waiter to database
-	public void addEmployee(Employee employee) {
-		employeesDB.addEmployee(employee.getUsername(),employee.getPassword(),employee.getIsManager(),employee.getSalaryPerHour(),employee.getSalarySum(),employee.getFirstName(),employee.getLastName());
-	}
-	public void removeEmployee(String username) {
-		employeesDB.removeEmployee(username);
-	}
-	
-	public boolean ifEmployeeExist(String username)
-	{
-		return employeesDB.ifExist(username);
-	}
-
-	// put new order in database
-	public void inserNewOrder(Order order) {
-		ordersDB.insertOrder(order.getWhoOrdered(), order.getOrderID(), order.getTotalPrice(),
-				order.getCreditCardNumber(), order.getValidityCreditCard(), order.getOrderTime(),order.getOrderDate());
-	}
-	
-	//update salary to employee
-	public void updateSalary(String username, double salaryPerHour)
-	{
-		employeesDB.updateSalary(username,salaryPerHour);
-	}
-
-//return if client is in the Database
-	public boolean loginClientAuth(String username, String password) {
-
-		return clientsDB.loginAuthentication(username, password);
-	}
-
-	public boolean ifClientExist(String username,String email) {
-		return clientsDB.ifClientExist(username,email);
-	}
 	public boolean loginEmployeeAuth(String username, String password) {
 
 		return employeesDB.loginAuthentication(username, password);
@@ -75,24 +31,71 @@ public class AppModel {
 		return employeesDB.isManager(username, password);
 	}
 
+	public boolean ifEmployeeExist(String username) {
+		return employeesDB.ifEmployeeExist(username);
+	}
+
+	// update waiter to manager and new salary for him
+	public void updateToManager(String username, double newsalarypaerhour) {
+		employeesDB.updateToManager(username, newsalarypaerhour);
+
+	}
+
+	// put new client info in Database
+	public void signUpClient(Client client) {
+		clientsDB.insertInfo(client.getUsername(), client.getPassword(), client.getEmail(), client.getFirstName(),
+				client.getLastName());
+	}
+
+	// return if client is in the Database
+	public boolean loginClientAuth(String username, String password) {
+
+		return clientsDB.loginAuthentication(username, password);
+	}
+
+	public boolean ifClientExist(String username, String email) {
+
+		return clientsDB.ifClientExist(username, email);
+	}
+
+	// put new waiter to database
+	public boolean addEmployee(Employee employee) {
+		return employeesDB.addEmployee(employee.getUsername(), employee.getPassword(), employee.getIsManager(),
+				employee.getSalaryPerHour(), employee.getSalarySum(), employee.getFirstName(), employee.getLastName());
+	}
+
+	public boolean removeEmployee(String username) {
+		return employeesDB.removeEmployee(username);
+	}
+
+	// put new order in database
+	public boolean insertNewOrder(Order order) {
+		return ordersDB.insertOrder(order.getUsername(), order.getOrderID(), order.getTotalPrice(),
+				order.getCreditCardNumber(), order.getValidityCreditCard(), order.getOrderTime(), order.getOrderDate());
+	}
+
+	// update salary to employee
+	public boolean updateSalaryPerHour(String username, double salaryPerHour) {
+		return employeesDB.updateSalaryPerHour(username, salaryPerHour);
+	}
+
 	public Employee placeValues(String username, String password) {
 		return employeesDB.placeValues(username, password);
 	}
-	
-	public void updateTotalSalary(String username,double todayIncome) {
-		employeesDB.updateTotalSalary(username, todayIncome);
+
+	public void updateSalarySum(String username, double todayIncome) {
+		employeesDB.updateSalarySum(username, todayIncome);
 	}
-	
+
 	public double getSalaryCount(String username) {
 		return employeesDB.getSalaryCount(username);
 	}
-	
-	
-	public ArrayList<Order> getOrdersDB(){
+
+	public ArrayList<Order> getOrdersDB() {
 		return ordersDB.getOrdersDB();
 	}
-	
-	public ArrayList<Employee> getAllEmployees(){
+
+	public ArrayList<Employee> getAllEmployees() {
 		return employeesDB.getAllEmployees();
 	}
 

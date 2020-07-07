@@ -8,13 +8,12 @@ import java.util.Date;
 
 public class Order
 {
-	private String whoOrdered;
+	private String username;
 	private ArrayList<ItemInMenu> shoppingCart;
 	private double totalPrice;
 	private String orderID;
 	private String creditCardNumber;
 	private String validityCreditCard;
-	private Date dateObj;
 	private String orderTime;
 	private String orderDate;
 	
@@ -22,19 +21,22 @@ public class Order
 	public Order(String username)
 	{
 		this.totalPrice=0;
-		this.setWhoOrdered(username);
+		this.username = username;
         this.orderID=UUID.randomUUID().toString();
-        this.shoppingCart= new ArrayList<>();
+        this.shoppingCart= new ArrayList<ItemInMenu>();
 	}
 	
 	//constructor for order we pull from database
-	public Order(String username,double totalPrice,String orderID,String orderTime,String orderDate)
+	public Order(String username,double totalPrice,String orderID,String orderTime,String orderDate,String creditCardNum,String creditCardVal)
 	{
-		this.whoOrdered = username;
+		this.username = username;
 		this.totalPrice = totalPrice;
 		this.orderID = orderID;
 		this.orderDate = orderDate;
 		this.orderTime = orderTime;
+		this.creditCardNumber = creditCardNum;
+		this.validityCreditCard = creditCardVal;
+		this.shoppingCart = new ArrayList<ItemInMenu>();
 	}
 	
 	
@@ -44,7 +46,7 @@ public class Order
 							+"\nTotal Price: " +this.totalPrice
 							+"\nOrder Time:"+this.orderTime
 							+"\nOrder Date:"+this.orderDate
-							+"\nOrdered by: " +this.whoOrdered);
+							+"\nOrdered by: " +this.username+"\n" );
 							
 	}
 	public void setShoppingCart(ArrayList<ItemInMenu> shoppingCart)
@@ -63,8 +65,8 @@ public class Order
 	{
 		this.validityCreditCard = validity;
 	}
-	public void setWhoOrdered(String whoOrdered) {
-		this.whoOrdered = whoOrdered;
+	public void setUsername(String whoOrdered) {
+		this.username = whoOrdered;
 	}
 	
 	public ArrayList<ItemInMenu> getShoppingCart()
@@ -74,8 +76,8 @@ public class Order
 	public double getTotalPrice() {
 		return totalPrice;
 	}
-	public String getWhoOrdered() {
-		return whoOrdered;
+	public String getUsername() {
+		return username;
 	}
 	public String getOrderID() {
 		return orderID;
@@ -95,7 +97,7 @@ public class Order
 	}
 	public void setDateAndTime()
 	{
-		this.dateObj = new Date();
+		Date dateObj = new Date();
 		int year = dateObj.getYear()+1900;
 		int month = dateObj.getMonth()+1;
 		this.orderDate = dateObj.getDate()+"/"+month+"/"+year;

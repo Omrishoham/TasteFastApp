@@ -21,7 +21,7 @@ public class ClientsDB extends Database {
 	}
 
 	// insert new login info to database
-	public void insertInfo(String username, String password, String email, String firstName, String lastName) {
+	public boolean insertInfo(String username, String password, String email, String firstName, String lastName) {
 		
 		String sqlString = "INSERT INTO clients (username,password,email,firstname,lastname) VALUES(?,?,?,?,?)";
 
@@ -35,10 +35,13 @@ public class ClientsDB extends Database {
 			pstmt.setString(5, lastName);
 			pstmt.executeUpdate();
 			pstmt.close();
-
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return false;
 		}
+		
+		return true;
 	}
 	//check if username or email exists
 	public boolean ifClientExist(String username,String email) {
