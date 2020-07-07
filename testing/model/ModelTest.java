@@ -4,18 +4,28 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+import com.sun.org.apache.xerces.internal.util.Status;
+
+import model.menu.MyMenu;
 import sun.util.calendar.Gregorian;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ModelTest {
 
 	AppModel model;
 	ModelTest test;
-	
-	boolean firtTimeOrder = true;
+
+	static Employee employee;
+	static Client client;
 
 	@Before
 	public void setUp() {
@@ -23,123 +33,148 @@ public class ModelTest {
 		test = new ModelTest();
 	}
 
+	@BeforeClass
+	public static void createPeople() {
+		// sign up as client and insert to DB once
+		client = new Client("omriSh", "2222", "omri_shoham@gmail.com", "omri", "shoham");
+		employee = new Employee("tomersh8", "1111", false, 80, 0, "tomer", "shitrit");
+	}
+
 	@Test
-	public void testEmployeeManagmentSequence() { // manager actions tests
-
-		Employee employee = new Employee("tomersh8", "1111", false, 80, 0, "tomer", "shitrit");
-
-		// login as employee
+	public void testAEmployeeLogin() {
+		// login as employee (as admin)
 		assertTrue("employee login success!", model.loginEmployeeAuth("admin", "admin"));
+	}
 
-		// ask if he is manager
-		assertTrue("this is a manager", model.ifEmployeeManager("admin", "admin"));
+	@Test
+	public void testBEmployeeLoginFail() {
+		// login as not yet an employee
+		assertFalse("cannot login! not an employee!",
+				model.loginEmployeeAuth(employee.getUsername(), employee.getPassword()));
+	}
 
+	@Test
+	public void testCEmployeeNotExist() {
 		// check if the employee we want to add exist already
-		assertFalse("employee does not exist!", model.ifEmployeeExist("tomersh8"));
+		assertFalse("employee does not exist!", model.ifEmployeeExist(employee.getUsername()));
+	}
+
+	@Test
+	public void testDAddEmployee() {
 
 		// check if employee added successfully
 		assertTrue("employee added!", model.addEmployee(employee));
+	}
 
-		// the employee is not yet manager
-		assertFalse("the emplyoee is not a manager",
+	@Test
+	public void testEEmployeeExist() {
+		// employee does exist
+		assertTrue("employee exist!", model.ifEmployeeExist(employee.getUsername()));
+	}
+
+	@Test
+	public void testFIsNotManager() {
+		// ask if the new added employee is manager
+		assertFalse("this employee is not a manager",
 				model.ifEmployeeManager(employee.getUsername(), employee.getPassword()));
+	}
+
+	@Test
+	public void testGIsManager() {
 
 		// upgrade to manager
-		model.updateToManager(employee.getUsername(), 120);
+		model.updateToManager("tomersh8", 120);
 
 		// now a manager
 		assertTrue("the emplyoee is now a manager",
 				model.ifEmployeeManager(employee.getUsername(), employee.getPassword()));
-
-		// employee does exist
-		assertTrue("employee exist!", model.ifEmployeeExist("tomersh8"));
-
-		// check if can remove the employee from DB
-		assertTrue("employee is removed", model.removeEmployee("tomersh8"));
-
-		// check if the removed employee exist
-		assertFalse("employee does not exist!", model.ifEmployeeExist("tomersh8"));
-
 	}
 
 	@Test
-	public void testEmployeeSalary() { // employee salary update tests
+	public void testHEmployeeUpdateSalary() {
 
-		Employee employee = new Employee("sagiv", "1111", false, 80, 0, "sag", "rud");
-
-		// check if employee added successfully
-		assertTrue("employee added!", model.addEmployee(employee));
-
-		// check previous salary vs new salary
 		double currSalary = employee.getSalaryPerHour();
 
 		// check if salary can be updated
 		assertTrue("salary per hour changed", model.updateSalaryPerHour(employee.getUsername(), 120));
 
-		// import from DB
-		employee = model.placeValues("sagiv", "1111");
+		employee = model.placeValues(employee.getUsername(), employee.getPassword());
 
-		// compare salaries
+		// actually changed
 		assertFalse("not matching salaries", currSalary == employee.getSalaryPerHour());
-
-		// remove from DB
-		assertTrue("employee removed", model.removeEmployee("sagiv"));
 	}
 
 	@Test
-	public void testClientEventSequence() {
+	public void testIEmployeeRemove() {
 
-		//sign up as client and insert to DB once
-		Client client = new Client("omriSh","2222" ,"omri_shoham@gmail.com" ,"omri" ,"shoham");
-			
-		if(!model.ifClientExist(client.getUsername(), client.getEmail())) {
-			assertFalse("client does not exist",model.ifClientExist(client.getUsername(), client.getEmail()));
-			model.signUpClient(client);
+		// must check if employee exist
+		if (model.ifEmployeeExist(employee.getUsername())) {
+
+			assertTrue("employee is removed", model.removeEmployee(employee.getUsername()));
 		}
+
 		else {
-			assertTrue("client does not exist",model.ifClientExist(client.getUsername(), client.getEmail()));
+
+			assertFalse("invalid employee username, cannot remove!", model.removeEmployee(employee.getUsername()));
 		}
+
+	}
+
+	@Test
+	public void testKClientSignUp() {
 		
-		//check if existing client can login
-		assertTrue("client logged in successfully!",model.loginClientAuth(client.getUsername(), client.getPassword()));
-		
-		//fake client login
-		assertFalse("client cannot login, does not exist!",model.loginClientAuth("noOne", "1234"));
-		
+		if (!model.ifClientExist(client.getUsername(), client.getEmail())) {
+
+			assertFalse("client does not exist", model.ifClientExist(client.getUsername(), client.getEmail()));
+			model.signUpClient(client);
+			
+		} 
+		else {
+
+			assertTrue("client does not exist", model.ifClientExist(client.getUsername(), client.getEmail()));
+		}
+
+	}
+
+	@Test
+	public void testLCLientLogin() {
+
+		// check if existing client can login
+		assertTrue("client logged in successfully!", model.loginClientAuth(client.getUsername(), client.getPassword()));
+
+		// fake client login
+		assertFalse("client cannot login, does not exist!", model.loginClientAuth("noOne", "1234"));
+	}
+
+	@Test
+	public void testMOrder() {
+
+		ArrayList<ItemInMenu> menu = MyMenu.getInstance(); // instance of menu
+		double menuSum = 0;
+
+		// sum all the prices of all the menu to check if fits
+		for (ItemInMenu itemInMenu : menu) {
+			menuSum += itemInMenu.getPrice();
+		}
+
+		// add same items to order cart
+		Order order3 = new Order("yosef");
+		order3.setShoppingCart(menu);
+		double cartSum = 0;
+		for (ItemInMenu itemInMenu : order3.getShoppingCart()) {
+			cartSum += itemInMenu.getPrice();
+		}
+		order3.setTotalPrice(cartSum);
+
+		// check if prices are right
+		assertTrue("this is the right sum of prices", menuSum == cartSum);
 	}
 	
-	@Test
-	public void testOrder() {
-		
-		//getting all current registered orders from DB
-		ArrayList<Order> allOrders = new ArrayList<Order>();
-		//example order instance
-		Order order = new Order("sabatobi");
-		order.setTotalPrice(150);
-		order.setDateAndTime();
-		order.setCreditCartNumber("1234567812345678");
-		order.setValidityCreditCard("04/23");
-		
-		//order not yet in DB
-		assertFalse("order not found!",allOrders.contains(order));
-		
-		//check if order is in DB, else insert and check insertion succeed
-		assertTrue("order inserted successfully!",model.insertNewOrder(order));
-		
-		//get updated order DB
-		allOrders = model.getOrdersDB();
-		
-		String id = order.getOrderID();
-		
-		for(Order order2 : allOrders) {
-			order2.printOrder();
-		}
-		
-		System.out.println("\n the current order");
-		order.printOrder();
-		
-		assertTrue("order is in list",allOrders.contains(order));
-		
+	@AfterClass
+	public static void testGetAllEmployees() {
+		// show updated list of employees after changes (removes, adds)
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		assertFalse("employee does not work here", employees.contains(employee));
 	}
 
 }
