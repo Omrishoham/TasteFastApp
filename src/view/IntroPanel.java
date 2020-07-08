@@ -17,9 +17,17 @@ public class IntroPanel
 	{
 		Scanner input = new Scanner(System.in);
 		System.out.println("1.Sign up as client\n2.Login as client\n3.Login as waiter to shift\n4.Login as manager to shift" );
-		int numPress = input.nextInt();
+		String numPress = input.nextLine();
+		int num = 0;
+		try {
+			num = Integer.parseInt(numPress);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+		}
 		
-		switch(numPress) {
+		switch(num) {
 		case 1:
 			propertyChangeHandler.firePropertyChange("SignUpPanel",0,1);
 			break;
@@ -31,6 +39,9 @@ public class IntroPanel
 			break;
 		case 4:
 			propertyChangeHandler.firePropertyChange("EmployeeLoginPanel", 0, 1);
+			break;
+		default:
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
 			break;
 
 		}

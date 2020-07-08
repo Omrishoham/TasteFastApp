@@ -14,11 +14,15 @@ import model.Order;
 public class CheckoutPanel {
 
 	private PropertyChangeSupport propertyChangeHandler;
+	
+	private Random random;
 
 	// private ArrayList<ItemsInMenu> shoppingCart;
 
 	public CheckoutPanel() {
+		
 		setPropertyChangeSupport();
+		this.random = new Random();
 	}
 
 	public void panelActivity(Order order) {
@@ -33,8 +37,17 @@ public class CheckoutPanel {
 		
 		System.out.println("1.To confirm order and make payment\n2.Return to make changes");
 
-		int numPress = input.nextInt();
-		switch (numPress){
+		String numPress = input.nextLine();
+		int num = 0;
+		try {
+			num = Integer.parseInt(numPress);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			propertyChangeHandler.firePropertyChange("CheckoutPanel", 0, order);
+		}
+		
+		switch (num){
 		//enter payment details
 		case 1:
 			Scanner input2 = new Scanner(System.in);
@@ -66,27 +79,49 @@ public class CheckoutPanel {
 		case 2:
 			propertyChangeHandler.firePropertyChange("ReturnToOrderPanel", 0, order);
 			break;
-		}
-	       Random rand = new Random();
-	       int low = 20;
-	       int high = 30;
-	       int result = rand.nextInt(high-low) + low;
-		System.out.println("In "+result+" Minutes You Will Get Your Order");
-		System.out.println("Press 1 to client menu");
-		Scanner input3 = new Scanner(System.in);
-		numPress = input3.nextInt();
-		switch(numPress) {
-		case 1:
-			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+			
+		default:
+			propertyChangeHandler.firePropertyChange("CheckoutPanel", 0, order);
 			break;
 		}
 		
-		
-
+	    finishOrder();
 	}
 
 	
-	
+	private void finishOrder() {
+		
+	    int low = 20;
+	    int high = 30;
+	    int result = random.nextInt(high-low) + low;
+	    
+		System.out.println("In "+result+" Minutes You Will Get Your Order");
+		System.out.println("Press 1 to logout");
+		
+		Scanner input3 = new Scanner(System.in);
+		String numPress2 = input3.nextLine();
+		int num2 = 0;
+		
+		try {
+			num2 = Integer.parseInt(numPress2);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			finishOrder();
+		}
+		
+		while(num2 != 1) {
+			
+			System.out.println("Please check valid option");
+			numPress2 = input3.nextLine();
+		}
+		
+		if(num2 == 1) {
+			//only valid option
+			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
+		}
+		
+	}
 	
 	public void setPropertyChangeSupport() {
 		propertyChangeHandler = new PropertyChangeSupport(this);

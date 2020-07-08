@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ClientsDB extends Database {
+	
 	private static ClientsDB instance = null;
 
-	private ClientsDB() {
-	}
+	private ClientsDB() {}
 
 	public static ClientsDB getInstance()// use singleton design pattern
 	{

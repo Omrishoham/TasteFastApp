@@ -18,7 +18,7 @@ import com.sun.org.apache.xerces.internal.util.Status;
 import model.menu.MyMenu;
 import sun.util.calendar.Gregorian;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class ModelTest {
 
 	AppModel model;
@@ -41,57 +41,65 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testAEmployeeLogin() {
+	public void testEmployeeLogin() {
 		// login as employee (as admin)
 		assertTrue("employee login success!", model.loginEmployeeAuth("admin", "admin"));
 	}
 
 	@Test
-	public void testBEmployeeLoginFail() {
+	public void testEmployeeLoginFail() {
 		// login as not yet an employee
 		assertFalse("cannot login! not an employee!",
 				model.loginEmployeeAuth(employee.getUsername(), employee.getPassword()));
 	}
 
 	@Test
-	public void testCEmployeeNotExist() {
+	public void testEmployeeNotExist() {
 		// check if the employee we want to add exist already
 		assertFalse("employee does not exist!", model.ifEmployeeExist(employee.getUsername()));
 	}
 
 	@Test
-	public void testDAddEmployee() {
+	public void testAddEmployee() {
 
 		// check if employee added successfully
 		assertTrue("employee added!", model.addEmployee(employee));
 	}
 
 	@Test
-	public void testEEmployeeExist() {
+	public void testEmployeeExist() {
 		// employee does exist
 		assertTrue("employee exist!", model.ifEmployeeExist(employee.getUsername()));
 	}
 
 	@Test
-	public void testFIsNotManager() {
+	public void testIsNotManager() {
 		// ask if the new added employee is manager
 		assertFalse("this employee is not a manager",
 				model.ifEmployeeManager(employee.getUsername(), employee.getPassword()));
 	}
 
 	@Test
-	public void testGIsManager() {
+	public void testIsManager() {
+		
+		//special case here
+		Employee currEmployee = new Employee("jamesL", "2222", false, 25, 0, "James", "Labrie");
+		
+		//add to DB
+		model.addEmployee(currEmployee);
 
 		// upgrade to manager
-		model.updateToManager("tomersh8", 120);
+		model.updateToManager(currEmployee.getUsername(), 120);
 
 		// now a manager
-		assertTrue("the emplyoee is now a manager",
-				model.ifEmployeeManager(employee.getUsername(), employee.getPassword()));
+		assertTrue("the emplyoee is now a manager", model.ifEmployeeManager(currEmployee.getUsername(), currEmployee.getPassword()));
+		
+		//remove after this test
+		model.removeEmployee(currEmployee.getUsername());
 	}
 
 	@Test
-	public void testHEmployeeUpdateSalary() {
+	public void testEmployeeUpdateSalary() {
 
 		double currSalary = employee.getSalaryPerHour();
 
@@ -105,7 +113,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testIEmployeeRemove() {
+	public void testEmployeeRemove() {
 
 		// must check if employee exist
 		if (model.ifEmployeeExist(employee.getUsername())) {
@@ -121,7 +129,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testKClientSignUp() {
+	public void testClientSignUp() {
 		
 		if (!model.ifClientExist(client.getUsername(), client.getEmail())) {
 
@@ -137,7 +145,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testLCLientLogin() {
+	public void testCLientLogin() {
 
 		// check if existing client can login
 		assertTrue("client logged in successfully!", model.loginClientAuth(client.getUsername(), client.getPassword()));
@@ -147,7 +155,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testMOrder() {
+	public void testOrder() {
 
 		ArrayList<ItemInMenu> menu = MyMenu.getInstance(); // instance of menu
 		double menuSum = 0;

@@ -23,17 +23,32 @@ public class OrderPanel
 	public void panelActivity(Client client)
 	{
 		Scanner input1 = new Scanner(System.in);
-		System.out.println("1.Continue to make order/n0.Back");
-		int numPress1 = input1.nextInt();
-		switch (numPress1){
+		System.out.println("1.Continue to make order\n0.Back");
+		String numPress = input1.nextLine();
+		int num = 0;
+		try {
+			num = Integer.parseInt(numPress);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			propertyChangeHandler.firePropertyChange("OrderPanel", 0, client);
+		}
+		switch (num){
+		
 		case 0:
 			propertyChangeHandler.firePropertyChange("ClientPanel", 0, client);
 			break;
+			
 		case 1:
-		this.menu = MyMenu.getInstance();
-		//menu.clear();
-		this.newOrder = new Order(client.getUsername());
-		makeOrder(this.newOrder);
+			this.menu = MyMenu.getInstance();
+			//menu.clear();
+			this.newOrder = new Order(client.getUsername());
+			makeOrder(this.newOrder);
+			break;
+			
+		default:
+			propertyChangeHandler.firePropertyChange("OrderPanel", 0, client);
+			break;
 		}
 	}
 	public void makeOrder(Order order)
@@ -200,26 +215,46 @@ public class OrderPanel
 			removeOrAddInput = input.nextLine();
 		}
 		
-		//print order details
-		System.out.println("Cart:");
-		for(ItemInMenu itemsInMenu : shoppingCart) {
-			itemsInMenu.printItem();
-		}
-		System.out.println("Total price: " +totalPrice);
-		
-		order.setShoppingCart(shoppingCart);
-		order.setTotalPrice(totalPrice);
-		
-		//move to cart panel to select payment method
-		System.out.println("1.Proceed to checkout");
-		int numPress = input.nextInt();
-		if(numPress == 1)
-		{
-			propertyChangeHandler.firePropertyChange("CheckoutPanel", 0, order);
-		}
+		presentCart(shoppingCart,totalPrice,order);
 	}
 
-	
+	private void presentCart(ArrayList<ItemInMenu> shoppingCart,double totalPrice,Order order) {
+		
+				//print order details
+				System.out.println("Cart:");
+				for(ItemInMenu itemsInMenu : shoppingCart) {
+					itemsInMenu.printItem();
+				}
+				
+				System.out.println("Total price: " +totalPrice);
+				order.setShoppingCart(shoppingCart);
+				order.setTotalPrice(totalPrice);
+				
+				//move to cart panel to select payment method
+				System.out.println("1.Proceed to checkout");
+				Scanner input = new Scanner(System.in);
+				String numPress = input.nextLine();
+				int num = 0;
+				
+				//check if number
+				try {
+					num = Integer.parseInt(numPress);
+				}
+				catch(NumberFormatException e) {
+					e.getMessage();
+					System.out.println("Please choose valid option");
+					presentCart(shoppingCart, totalPrice, order);
+				}
+				
+				//checkout panel
+				while(num != 1)
+				{
+					System.out.println("Please choose valid option");
+					presentCart(shoppingCart, totalPrice, order);
+				}
+				
+				propertyChangeHandler.firePropertyChange("CheckoutPanel", 0, order);
+	}
 	
 	public void setPropertyChangeSupport() 
 	{

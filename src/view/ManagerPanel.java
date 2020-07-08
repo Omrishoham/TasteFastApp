@@ -22,10 +22,26 @@ public class ManagerPanel {
 	{
 		this.manager = manager;
 		Scanner input = new Scanner(System.in);
+		
 		System.out.println("Hi Manager "+this.manager.getFirstName()+",");
-		System.out.println("Here are your options\n1.See All Orders\n2.Add(Sign up) employee to resturant\n3.Remove employee from resturant\n4.Make waiter a manager\n5.update waiter's salary per hour\n6.Logout(from shift also)");
-		int numPress = input.nextInt();
-		switch(numPress) {
+		System.out.println("Here are your options\n1.See All Orders\n"
+							+ "2.Add(Sign up) employee to resturant\n"
+							+ "3.Remove employee from resturant\n"
+							+ "4.Make waiter a manager\n"
+							+ "5.Update employee's salary per hour\n"
+							+ "6.Logout(from shift also)");
+		
+		String numPress = input.nextLine();
+		int num = 0;
+		try {
+			num = Integer.parseInt(numPress);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			propertyChangeHandler.firePropertyChange("ManagerPanel", 0, this.manager);
+		}
+		
+		switch(num) {
 		case 1:
 			propertyChangeHandler.firePropertyChange("PrintOrdersEvent",0,this.manager);
 			break;
@@ -44,8 +60,9 @@ public class ManagerPanel {
 		case 6:
 			propertyChangeHandler.firePropertyChange("LogoutEmployeeEvent", 0, this.manager);
 			break;
-			
-			
+		default:
+			propertyChangeHandler.firePropertyChange("ManagerPanel", 0, this.manager);
+			break;
 		}
 	}
 	

@@ -108,7 +108,7 @@ public class AppController implements PropertyChangeListener {
 				view.Msg("waiter updated to manager successfuly");
 				view.changeWindows("ManagerPanel", event.getOldValue());
 			} else {
-				view.Msg("waiter is not found");
+				view.Msg("waiter is not found!");
 				view.changeWindows("UpdateToManagerPanel", event.getOldValue());
 
 			}
@@ -120,7 +120,7 @@ public class AppController implements PropertyChangeListener {
 				view.Msg("employee's salary updated successfuly");
 				view.changeWindows("ManagerPanel", event.getOldValue());
 			} else {
-				view.Msg("employee is not found");
+				view.Msg("employee is not found!");
 				view.changeWindows("UpdateSalaryPanel", event.getOldValue());
 
 			}

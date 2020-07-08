@@ -20,20 +20,30 @@ public class ClientPanel {
 		System.out.println("Hi Client "+client.getUsername()+"!");
 		System.out.println("1.Make an order\n2.Call waiter for assistance\n3.Logout");
 		Scanner input = new Scanner(System.in);
-		int numPress = input.nextInt();
+		String numPress = input.nextLine();
+		int num = 0;
+		try {
+			num = Integer.parseInt(numPress);
+		}
+		catch(NumberFormatException e) {
+			e.getMessage();
+			propertyChangeHandler.firePropertyChange("ClientPanel", 0, client);
+		}
 		
-		switch (numPress) {
+		switch (num) {
 		case 1:
 			propertyChangeHandler.firePropertyChange("OrderPanel",0,client); // goes to menu panel
 			break;
 		case 2:
 			System.out.println("The waiter will be there shortly :)\n");
 			propertyChangeHandler.firePropertyChange("ClientPanel",0,client);
+			break;
 		case 3:
 			propertyChangeHandler.firePropertyChange("IntroPanel", 0, 1);
 			break;
 
 		default:
+			propertyChangeHandler.firePropertyChange("ClientPanel", 0, client);
 			break;
 		}
 	}

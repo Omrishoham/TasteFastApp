@@ -97,29 +97,30 @@ public class DatabaseTest {
 	public void testOrder() { //check order
 		
 		//getting all current registered orders from DB
-				ArrayList<Order> allOrders = new ArrayList<Order>();
-				//example order instance
-				Order order = new Order("sabatobi");
-				order.setTotalPrice(150);
-				order.setDateAndTime();
-				order.setCreditCartNumber("1234567812345678");
-				order.setValidityCreditCard("04/23");
+		ArrayList<Order> allOrders = new ArrayList<Order>();
+		//example order instance
+		Order order = new Order("sabatobi");
+		order.setTotalPrice(150);
+		order.setDateAndTime();
+		order.setCreditCartNumber("1234567812345678");
+		order.setValidityCreditCard("04/23");
 				
-				//order not yet in DB
-				assertFalse("order not found!",allOrders.contains(order));
+		//order not yet in DB
+		assertFalse("order not found!",allOrders.contains(order));
 				
-				//check if order is in DB, else insert and check insertion succeed
-				assertTrue("order inserted successfully!",ordersDB.insertOrder(order.getUsername()
+		//check if order is in DB, else insert and check insertion succeed
+		assertTrue("order inserted successfully!",ordersDB.insertOrder(order.getUsername()
 						, order.getOrderID(), order.getTotalPrice(), order.getCreditCardNumber(), order.getValidityCreditCard(),
 						order.getOrderTime(), order.getOrderDate()));
 				
-				//get updated order DB
-				allOrders = ordersDB.getOrdersDB();
+		//get updated order DB
+		allOrders = ordersDB.getOrdersDB();
 				
-				String id = order.getOrderID();
+		String id = order.getOrderID();
 				
-				String id2 = allOrders.get(allOrders.size() - 1).getOrderID();
-				
-				assertTrue("order is in list",id == id2);
+		String id2 = allOrders.get(allOrders.size() - 1).getOrderID();
+		
+		//compare current order to the last order inserted to the DB by ID
+		assertTrue("order is in list",id.equals(id2));
 	}
 }
